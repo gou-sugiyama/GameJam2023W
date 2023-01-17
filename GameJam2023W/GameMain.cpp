@@ -1,6 +1,8 @@
 #include "DxLib.h"
 #include "GameMain.h"
 #include "Title.h"
+#include "GameClear.h"
+#include "GameOver.h"
 #include "padkey.h"
 #include "common.h"
 
@@ -44,6 +46,7 @@ void GameMain::Draw() const
 	DrawString(0, 20, "GamaMainScene", 0xffffff);
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
+	DrawString(0, 20, "GameMainScene", 0xffffff);
 }
 
 //-------------------
@@ -51,9 +54,14 @@ void GameMain::Draw() const
 //-------------------
 AbstractScene* GameMain::ChangeScene()
 {
+	/*if (DX_INPUT_PAD1)
+	{
+		return new GameOver();
+	}*/
+
 	if (sceneFlg)
 	{
-		return new Title();
+		return new GameClear();
 	}
 	return this;
 }

@@ -1,6 +1,8 @@
 #include "DxLib.h"
 #include "Title.h"
 #include "GameMain.h"
+#include "GameOver.h"
+#include "GameClear.h"
 #include "padkey.h"
 
 //----------------------------
@@ -36,6 +38,10 @@ void Title::Draw() const
 //-------------------------
 AbstractScene* Title::ChangeScene()
 {
+	/*if(DX_INPUT_PAD1)
+	{
+		return new GameMain();
+	}*/
 	if (sceneFlg)
 	{
 		return new GameMain();
