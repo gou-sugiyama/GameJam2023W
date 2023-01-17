@@ -13,8 +13,10 @@
 Title::Title()
 {
 	SelectY = 0;
-	MenuY = 0;
 	sceneCHG = false;
+	OldY = 0;
+	InputY = 0;
+	FlgY = 0;
 
 	DebagCount = 0;
 }
@@ -24,22 +26,20 @@ Title::Title()
 //-------------------------
 void Title::Update() 
 {
-	if (120 < DebagCount++) {
+	Pad();
+	/*if (120 < DebagCount++) {
 		sceneCHG = true;
-	}
-	/*
-	if () {
+	}*/
+	if (FlgY == 0 && InputY < -MARGIN) {
 		if (2 < ++SelectY) SelectY = 0;
 	}
-	if () {
-		if (++SelectY < 0) SelectY = 2;
+	if (FlgY == 0 && InputY > MARGIN) {
+		if (--SelectY < 0) SelectY = 2;
 	}
-	if(){
+
+	if (padkey::OnClick(XINPUT_BUTTON_A)) {
 		sceneCHG = true;
 	}
-	*/
-
-	MenuY = SelectY + 1;
 }
 
 //-----------------------
@@ -49,6 +49,7 @@ void Title::Draw() const
 {
 	DrawString(0, 20, "TitleScene", 0xffffff);
 
+	int MenuY = 50 * SelectY;
 	DrawTriangle(100, 50 + MenuY, 120, 55 + MenuY, 100, 60 + MenuY, 0xffffff, true);
 }
 
@@ -58,7 +59,7 @@ void Title::Draw() const
 AbstractScene* Title::ChangeScene()
 {
 	if (sceneCHG) {
-		/*if (SelectY == 0) {
+		if (SelectY == 0) {
 			return new GameMain;
 		}
 		if (SelectY == 1) {
@@ -66,13 +67,18 @@ AbstractScene* Title::ChangeScene()
 		}
 		if (SelectY == 2) {
 			return new GameEnd;
-		}*/
-		return new Help;
+		}
 	}
 
 	return this;
 }
 
 void Title::Pad() {
-
+	InputY = padkey::GetPadThumblY();
+	if (OldY > MARGIN && InputY > MARGIN) {
+		FlgY = 1;
+	}
+	else if (OldY < -MARGIN && InputY < -MARGIN)FlgY = 1;
+	else { FlgY = 0; }
+	OldY = InputY;
 }

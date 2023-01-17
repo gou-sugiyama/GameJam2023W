@@ -4,8 +4,10 @@
 class Title : public AbstractScene {
 private:
 	int SelectY;     //Y座標の決定値
-	int MenuY;       //カーソルのY座標の移動値
 	bool sceneCHG;   //シーン変更値
+	int OldY;
+	int InputY;
+	int FlgY;
 
 	int DebagCount;
 

@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "Help.h"
 #include "Title.h"
-#include "GameEnd.h"
+#include "padkey.h"
 
 Help::Help() {
 	SelectY = 0;
@@ -12,7 +12,7 @@ Help::Help() {
 }
 
 void Help::Update() {
-	if (120 < DebagCount++) {
+	if (padkey::OnClick(XINPUT_BUTTON_A)) {
 		sceneCHG = true;
 	}
 }
@@ -23,7 +23,7 @@ void Help::Draw() const {
 
 AbstractScene* Help::ChangeScene() {
 	if (sceneCHG) {
-		return new GameEnd;
+		return new Title;
 	}
 
 	return this;
