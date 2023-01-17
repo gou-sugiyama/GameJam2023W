@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Title.h"
 #include "GameMain.h"
+#include "padkey.h"
 
 //----------------------------
 // コンストラクタ
@@ -16,7 +17,7 @@ Title::Title()
 void Title::Update() 
 {
 	t++;
-	if (t > 180)
+	if (padkey::OnClick(XINPUT_BUTTON_B))
 	{
 		sceneFlg = true;
 	}

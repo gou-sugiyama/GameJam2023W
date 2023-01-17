@@ -1,8 +1,12 @@
 #include "DxLib.h"
 #include "GameMain.h"
 #include "Title.h"
+#include "padkey.h"
+#include "common.h"
 
-
+int	gFire = 0;
+int gFireX;				// カーソルのX座標
+int gFuse = 4;
 //-------------------
 // コンストラクタ
 //-------------------
@@ -16,11 +20,20 @@ GameMain::GameMain()
 //-------------------
 void GameMain::Update()
 {
-	t++;
-	if (t > 180)
+	if (padkey::OnClick(XINPUT_BUTTON_Y))
 	{
 		sceneFlg = true;
 	}
+	if (padkey::OnClick(XINPUT_BUTTON_DPAD_RIGHT))
+	{
+		if (++gFire > gFuse) gFire = 0;
+	}
+	if (padkey::OnClick(XINPUT_BUTTON_DPAD_LEFT))
+	{
+		if (--gFire < 0) gFire = gFuse;
+	}
+	gFireX = 300 + gFire * 150;
+	DrawBox(gFireX, 580, gFireX + 100, 680, 0xff0000, FALSE);
 }
 
 //-------------------
@@ -29,6 +42,8 @@ void GameMain::Update()
 void GameMain::Draw() const
 {
 	DrawString(0, 20, "GamaMainScene", 0xffffff);
+	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
+	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
 }
 
 //-------------------
