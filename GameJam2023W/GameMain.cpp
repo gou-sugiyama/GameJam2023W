@@ -8,7 +8,15 @@
 //-------------------
 GameMain::GameMain()
 {
+	fuses = new Fuses();
+}
 
+//-------------------
+// デストラクタ
+//-------------------
+GameMain::~GameMain()
+{
+	delete fuses;
 }
 
 //-------------------
@@ -16,10 +24,11 @@ GameMain::GameMain()
 //-------------------
 void GameMain::Update()
 {
+	fuses->Update();
 	t++;
 	if (t > 180)
 	{
-		sceneFlg = true;
+		//sceneFlg = true;  //TODO:シーン切り替え停止中
 	}
 }
 
@@ -28,6 +37,7 @@ void GameMain::Update()
 //-------------------
 void GameMain::Draw() const
 {
+	fuses->Draw();
 	DrawString(0, 20, "GamaMainScene", 0xffffff);
 }
 
