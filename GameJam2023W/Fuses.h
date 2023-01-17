@@ -45,6 +45,9 @@ public:
 	//“±‰Îü‚Ì¶¬
 	int** MakeFuses(int fuseNum);
 
+	//“±‰Îü‚Ì‰Šú‰»
+	void InitFuses();
+
 	//“±‰Îü‚Ìíœ
 	void DeleteFuses();
 };
