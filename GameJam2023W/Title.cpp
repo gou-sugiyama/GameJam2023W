@@ -31,6 +31,9 @@ void Title::Update()
 	if () {
 		if (++SelectY < 0) SelectY = 2;
 	}
+	if(){
+		sceneCHG = true;
+	}
 	*/
 
 	MenuY = SelectY + 1;
@@ -52,8 +55,20 @@ void Title::Draw() const
 AbstractScene* Title::ChangeScene()
 {
 	if (sceneCHG) {
-		return new Help;
+		if (SelectY == 0) {
+			return new GameMain;
+		}
+		if (SelectY == 1) {
+			return new Help;
+		}
+		if (SelectY == 2) {
+			return new GameEnd;
+		}
 	}
 
 	return this;
+}
+
+void Title::Pad() {
+
 }
