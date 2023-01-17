@@ -1,21 +1,23 @@
 #include "DxLib.h"
-#include "GameMain.h"
-#include "Title.h"
 #include "GameClear.h"
+#include "Title.h"
 #include "GameOver.h"
+
 
 //-------------------
 // コンストラクタ
 //-------------------
-GameMain::GameMain()
+GameClear::GameClear()
 {
-
+	/*old = now;
+	now = PadInput();
+	keyflg = now&~old;*/
 }
 
 //-------------------
 // 更新
 //-------------------
-void GameMain::Update()
+void GameClear::Update()
 {
 	t++;
 	if (t > 180)
@@ -27,24 +29,22 @@ void GameMain::Update()
 //-------------------
 // 描画
 //-------------------
-void GameMain::Draw() const
+void GameClear::Draw() const
 {
-	DrawString(0, 20, "GameMainScene", 0xffffff);
+	SetFontSize(50);
+	DrawString(500, 300, "Game Clear!", 0xffffff);
+	DrawString(300, 660, "-- Bボタンでタイトルに戻る --", 0xffffff);
 }
 
 //-------------------
 // シーン切り換え
 //-------------------
-AbstractScene* GameMain::ChangeScene()
+AbstractScene* GameClear::ChangeScene()
 {
-	/*if (DX_INPUT_PAD1)
-	{
-		return new GameOver();
-	}*/
-
 	if (sceneFlg)
 	{
-		return new GameClear();
+		return new GameOver();
 	}
 	return this;
+	
 }

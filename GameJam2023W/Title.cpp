@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Title.h"
 #include "GameMain.h"
+#include "GameOver.h"
 
 //----------------------------
 // コンストラクタ
@@ -35,9 +36,13 @@ void Title::Draw() const
 //-------------------------
 AbstractScene* Title::ChangeScene()
 {
-	if (sceneFlg)
+	/*if(DX_INPUT_PAD1)
 	{
 		return new GameMain();
+	}*/
+	if (sceneFlg)
+	{
+		return new GameOver();
 	}
 
 	return this;
