@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "common.h"
+#include "SceneManager.h"
 
 /***********************************************
  * プログラムの開始
@@ -22,6 +23,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	SetFontSize(20);		// 文字サイズを設定
 
+	//シーンマネージャーの確保
+	SceneManager* sceneManager = new SceneManager();
+
 	// ゲームループ
 	while (ProcessMessage() == 0 &&
 		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ 
@@ -29,10 +33,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	{
 		ClearDrawScreen();
 
+		sceneManager->Update();
+		sceneManager->Draw();
+
 		DrawString(0, 0, "FirstCommit", 0xFFFFFF);
 
 		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
+
+	//シーンマネージャーの解放
+	delete sceneManager;
 
 	DxLib_End();	// DXライブラリ使用の終了処理
 
