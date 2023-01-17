@@ -21,14 +21,15 @@
 
 #define D_FUSE_NUM_MAX 10 //導火線の最大本数
 #define D_FUSE_NUM_MIN 3  //導火線の最小本数
-#define D_FUSE_
+#define D_FUSE_LENGTH 10  //導火線の長さ
 
 class Fuses
 {
 private:
 	int fuseImages;//TODO:burnedの画像追加して配列にする
 	int fuseNum;	//本数
-
+	int fusesArrayMax;
+	int** fuses;
 
 public:
 	//コンストラクタ
@@ -41,6 +42,10 @@ public:
 	//描画
 	void Draw() const;
 
+	//導火線の生成
+	int** MakeFuses(int fuseNum);
 
+	//導火線の削除
+	void DeleteFuses();
 };
 
