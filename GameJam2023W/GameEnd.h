@@ -11,6 +11,9 @@ private:
 	int DebagCount;
 
 public:
+	static int END;         //終了
+
+public:
 	GameEnd();
 
 	//デストラクタ

@@ -55,7 +55,7 @@ void Title::Draw() const
 AbstractScene* Title::ChangeScene()
 {
 	if (sceneCHG) {
-		if (SelectY == 0) {
+		/*if (SelectY == 0) {
 			return new GameMain;
 		}
 		if (SelectY == 1) {
@@ -63,7 +63,8 @@ AbstractScene* Title::ChangeScene()
 		}
 		if (SelectY == 2) {
 			return new GameEnd;
-		}
+		}*/
+		return new Help;
 	}
 
 	return this;
