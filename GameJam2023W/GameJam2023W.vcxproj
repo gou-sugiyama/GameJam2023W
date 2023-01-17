@@ -141,13 +141,17 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Help.h" />
     <ClInclude Include="padkey.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="padkey.cpp" />
     <ClCompile Include="SceneManager.cpp" />

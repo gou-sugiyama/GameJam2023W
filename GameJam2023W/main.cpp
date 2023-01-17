@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "common.h"
 #include "SceneManager.h"
+#include "GameEnd.h"
 #include "padkey.h"
 
 /***********************************************
@@ -29,7 +30,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	// ゲームループ
 	while (ProcessMessage() == 0 &&
-		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ 
+		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ &&
+		GameEnd::END != 99
 		)
 	{
 		padkey::UpdataKey();
