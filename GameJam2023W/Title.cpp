@@ -1,13 +1,19 @@
 #include "DxLib.h"
 #include "Title.h"
 #include "GameMain.h"
+#include "Help.h"
+#include "GameEnd.h"
 
 //----------------------------
 // コンストラクタ
 //----------------------------
 Title::Title()
 {
+	SelectY = 0;
+	MenuY = 0;
+	sceneCHG = false;
 
+	DebagCount = 0;
 }
 
 //-------------------------
@@ -15,10 +21,8 @@ Title::Title()
 //-------------------------
 void Title::Update() 
 {
-	t++;
-	if (t > 180)
-	{
-		sceneFlg = true;
+	if (120 < DebagCount++) {
+		sceneCHG = true;
 	}
 }
 
@@ -35,9 +39,8 @@ void Title::Draw() const
 //-------------------------
 AbstractScene* Title::ChangeScene()
 {
-	if (sceneFlg)
-	{
-		return new GameMain();
+	if (sceneCHG) {
+		return new Help;
 	}
 
 	return this;

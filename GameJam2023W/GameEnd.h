@@ -1,7 +1,8 @@
 #pragma once
 #include "AbstractScene.h"
 
-class Title : public AbstractScene {
+class GameEnd : public AbstractScene
+{
 private:
 	int SelectY;     //Y座標の決定値
 	int MenuY;       //カーソルのY座標の移動値
@@ -10,12 +11,13 @@ private:
 	int DebagCount;
 
 public:
-	Title();
+	GameEnd();
 
-	// デストラクタ
-	~Title() {}
+	//デストラクタ
+	~GameEnd() {};
 
 	void Update() override;						//描画以外の更新処理
 	void Draw() const override;					//描画の更新処理
 	AbstractScene* ChangeScene() override;		//シーンの変更処理
 };
+
