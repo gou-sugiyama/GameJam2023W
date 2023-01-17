@@ -141,8 +141,10 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Help.h" />
     <ClInclude Include="padkey.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="result.h" />
@@ -150,8 +152,10 @@
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="result.cpp" />
