@@ -2,6 +2,7 @@
 #include "Title.h"
 #include "GameMain.h"
 #include "GameOver.h"
+#include "GameClear.h"
 
 //----------------------------
 // コンストラクタ
@@ -42,7 +43,7 @@ AbstractScene* Title::ChangeScene()
 	}*/
 	if (sceneFlg)
 	{
-		return new GameOver();
+		return new GameMain();
 	}
 
 	return this;

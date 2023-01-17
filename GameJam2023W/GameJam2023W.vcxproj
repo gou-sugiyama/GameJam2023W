@@ -144,6 +144,7 @@
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="result.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="result.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>

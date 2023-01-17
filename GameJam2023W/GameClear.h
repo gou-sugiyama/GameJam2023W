@@ -6,6 +6,7 @@ class GameClear :
 private:
 	int t = 0; //TODO:消してね
 	bool sceneFlg = false; //TODO:消してね
+	int count;
 
 public:
 	//コンストラクタ
@@ -17,5 +18,7 @@ public:
 	void Update() override;						//描画以外の更新処理
 	void Draw() const override;					//描画の更新処理
 	AbstractScene* ChangeScene() override;		//シーンの変更処理
+
+	void ten() const;
 };
 
