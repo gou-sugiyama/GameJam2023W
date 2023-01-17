@@ -11,7 +11,7 @@
 Fuses::Fuses()
 {
 	fuseImages = LoadGraph("images/fusetest.png");
-	fuseNum = 3;
+	fuseNum = 10;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 }
@@ -63,9 +63,12 @@ void Fuses::Draw() const
 	{
 		for (int j = 0; j < D_FUSE_LENGTH; j++)
 		{
-			DrawFormatString(D_FUSES_FIRST_X + 30 * i,
-				D_FUSES_FIRST_Y + 30 * j, 0xffffff,
-				"%d", fuses[i][j]);
+			//if (i % 2 == 0)
+			{
+				DrawFormatString(D_FUSES_FIRST_X + 30 * i,
+					D_FUSES_FIRST_Y + 30 * j, 0xffffff,
+					"%d", fuses[i][j]);
+			}
 		}
 	}
 #endif
@@ -97,6 +100,7 @@ int** Fuses::MakeFuses(int fuseNum)
 	{
 		fuses[i] = new int[D_FUSE_LENGTH];
 	}
+	
 
 	//fuses‚Ö’l‚ð‘ã“ü‚·‚é
 	for (int i = 0; i < fusesArrayMax; i++)
@@ -106,6 +110,10 @@ int** Fuses::MakeFuses(int fuseNum)
 			if (i % 2 == 0)
 			{
 				fuses[i][j] = D_ON_FUSE;
+			}
+			else
+			{
+				fuses[i][j] = D_FUSE_NONE;
 			}
 
 		}

@@ -35,7 +35,7 @@ public:
 	//コンストラクタ
 	Fuses();
 	//デストラクタ
-	~Fuses() {};
+	~Fuses() ;
 
 	//更新
 	void Update();
