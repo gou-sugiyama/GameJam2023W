@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "common.h"
 #include "SceneManager.h"
+#include "padkey.h"
 
 /***********************************************
  * プログラムの開始
@@ -31,6 +32,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ 
 		)
 	{
+		padkey::UpdataKey();
 		ClearDrawScreen();
 
 		sceneManager->Update();
