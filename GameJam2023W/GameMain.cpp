@@ -57,6 +57,8 @@ void GameMain::Draw() const
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
 	DrawString(0, 20, "GameMainScene", 0xffffff);
+
+	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: Á‚µ‚Ä
 }
 
 //-------------------
