@@ -15,7 +15,10 @@
 //配列のステータス-------------
 #define D_BURNED 0
 #define D_ON_FUSE 1
-#define D_ON_CROSSED_FUSES 2
+#define D_BUREND_FUSE_LEFT 2
+#define D_ON_FUSE_LEFT 3
+#define D_BUREND_FUSE_RIGHT 4
+#define D_ON_FUSE_RIGHT 5
 #define D_FUSE_NONE -1
 //-----------------------------
 
@@ -26,7 +29,7 @@
 class Fuses
 {
 private:
-	int fuseImages;//TODO:burnedの画像追加して配列にする
+	int fuseImages[6];//TODO:burnedの画像追加して配列にする
 	int fuseNum;	//本数
 	int fusesArrayMax;
 	int** fuses;
@@ -50,5 +53,10 @@ public:
 
 	//導火線の削除
 	void DeleteFuses();
+
+
+	//導火線の描画
+	void DrawFuses() const;
+
 };
 

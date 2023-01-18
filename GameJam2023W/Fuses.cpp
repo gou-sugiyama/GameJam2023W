@@ -10,7 +10,12 @@
 //---------------------------
 Fuses::Fuses()
 {
-	fuseImages = LoadGraph("images/fusetest.png");
+	fuseImages[D_BURNED]			= LoadGraph("images/burned_fuse.png");
+	fuseImages[D_ON_FUSE]			= LoadGraph("images/fuse.png");
+	fuseImages[D_BUREND_FUSE_LEFT]	 = LoadGraph("images/burned_fuse_left.png");
+	fuseImages[D_ON_FUSE_LEFT]		 = LoadGraph("images/fuse_left.png");
+	fuseImages[D_BUREND_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
+	fuseImages[D_ON_FUSE_RIGHT]		 = LoadGraph("images/fuse_right.png");
 	fuseNum = 10;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
@@ -36,28 +41,11 @@ void Fuses::Update()
 // •`‰æ
 //---------------------------
 void Fuses::Draw() const
-{/*
-	for (int i = 0; i < 20; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (i % 2 == 0)
-			{
-				DrawRotaGraph(D_FUSES_FIRST_X + 40 * i, 
-					D_FUSES_FIRST_Y + 40 * j, 
-					1.0,0,fuseImages, TRUE);
-				
-			}
-			if (i == 1 && j == 5)
-			{
-				DrawRotaGraph(D_FUSES_FIRST_X + 40 * i,
-					D_FUSES_FIRST_Y + 40 * j,
-					1.0, M_PI/180*90, fuseImages, TRUE);
-			}
-		}
-	}*/
+{
 
-#define _DEBUG_
+	DrawFuses();
+
+//#define _DEBUG_
 #ifdef _DEBUG_
 	for (int i = 0; i < fusesArrayMax; i++)
 	{
@@ -128,6 +116,12 @@ void Fuses::InitFuses(int** fuses)
 
 		}
 	}
+
+	//TODO:Œˆ‚ß‘Å‚¿‚È‚Ì‚ÅŒã‚ÅÁ‚·---
+	fuses[1][4] = D_ON_FUSE;
+	fuses[0][4] = D_ON_FUSE_RIGHT;
+	fuses[2][4] = D_ON_FUSE_LEFT;
+	//------------------------------
 }
 
 //---------------------------
@@ -140,4 +134,36 @@ void Fuses::DeleteFuses()
 		delete[] fuses[i];
 	}
 	delete[] fuses;
+}
+
+//----------------------
+// “±‰Îü‚Ì•`‰æ
+//----------------------
+void Fuses::DrawFuses() const
+{
+	for (int i = 0; i < fusesArrayMax; i++)
+	{
+		for (int j = 0; j < D_FUSE_LENGTH; j++)
+		{
+	
+			if (fuses[i][j] != D_FUSE_NONE) 
+			{
+				//c‚Ì“±‰Îü
+				if (i % 2 == 0)
+				{
+					DrawRotaGraph(D_FUSES_FIRST_X + 40 * i,
+						D_FUSES_FIRST_Y + 40 * j,
+						1.0, 0, fuseImages[fuses[i][j]], TRUE);
+				}
+				else //‰¡‚Ì“±‰Îü
+				{
+					DrawRotaGraph(D_FUSES_FIRST_X + 40 * i,
+						D_FUSES_FIRST_Y + 40 * j,
+						1.0, M_PI / 180 * 90, fuseImages[fuses[i][j]], TRUE);
+				}
+			}
+
+			
+		}
+	}
 }
