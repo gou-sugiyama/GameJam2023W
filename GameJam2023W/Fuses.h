@@ -46,7 +46,7 @@ public:
 	int** MakeFuses(int fuseNum);
 
 	//“±‰Îü‚Ì‰Šú‰»
-	void InitFuses();
+	void InitFuses(int**fuses);
 
 	//“±‰Îü‚Ìíœ
 	void DeleteFuses();

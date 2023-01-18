@@ -101,7 +101,7 @@ int** Fuses::MakeFuses(int fuseNum)
 		fuses[i] = new int[D_FUSE_LENGTH];
 	}
 	
-	InitFuses();
+	InitFuses(fuses);
 
 
 	return fuses;
@@ -110,7 +110,7 @@ int** Fuses::MakeFuses(int fuseNum)
 //------------------------
 // “±‰Îü‚Ì‰Šú‰»
 //------------------------
-void Fuses::InitFuses()
+void Fuses::InitFuses(int** fuses)
 {
 	//fuses‚Ö’l‚ğ‘ã“ü‚·‚é
 	for (int i = 0; i < fusesArrayMax; i++)
