@@ -48,6 +48,12 @@
     <ClInclude Include="padkey.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Fuses.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +84,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="padkey.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Fuses.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
