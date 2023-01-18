@@ -19,7 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	if (DxLib_Init() == -1) return -1;	// DXライブラリの初期化処理
 
-	SetMouseDispFlag(FALSE);	//マウスカーソル非表示
+	SetMouseDispFlag(TRUE);	//マウスカーソル非表示
 
 	SetDrawScreen(DX_SCREEN_BACK);	// 描画先画面を裏にする
 
@@ -36,6 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	{
 		padkey::UpdataKey();
 		ClearDrawScreen();
+
 
 		sceneManager->Update();
 		sceneManager->Draw();
