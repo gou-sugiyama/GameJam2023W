@@ -1,9 +1,11 @@
 #pragma once
 #include "AbstractScene.h"
+#include "Fuses.h"
 class GameMain :
     public AbstractScene
 {
 private:
+	Fuses* fuses;
 	int t = 0; //TODO:消してね
 	bool sceneFlg = false; //TODO:消してね
 
@@ -12,7 +14,7 @@ public:
 	GameMain();
 
 	//デストラクタ
-	~GameMain() {}
+	~GameMain();
 
 	void Update() override;						//描画以外の更新処理
 	void Draw() const override;					//描画の更新処理
