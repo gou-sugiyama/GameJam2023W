@@ -16,7 +16,7 @@ Fuses::Fuses()
 	fuseImages[D_ON_FUSE_LEFT]		 = LoadGraph("images/fuse_left.png");
 	fuseImages[D_BUREND_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
 	fuseImages[D_ON_FUSE_RIGHT]		 = LoadGraph("images/fuse_right.png");
-	fuseNum = 10;
+	fuseNum = 7;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
