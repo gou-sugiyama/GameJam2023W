@@ -1,15 +1,15 @@
 #pragma once
 
 //アニメーション用
-struct T_Anim
+struct T_Image
 {
 	int image;
 	int next;
 };
 
-struct T_Image
+struct T_Anim
 {
-	T_Anim* anim = nullptr;
+	T_Image* sprites = nullptr;
 	int current = 0;
 };
 
@@ -21,16 +21,8 @@ private:
 
 	//アニメーション用変数
 	int animTimer;
-	T_Image sparks1 = T_Image();
-	T_Image sparks2 = T_Image();
-	T_Image sparks3 = T_Image();
-	T_Image sparks4 = T_Image();
-	T_Image sparks5 = T_Image();
-
-	T_Image* images[5] =
-	{
-		sparks1,sparks2,sparks3,sparks4,sparks5
-	};
+	T_Anim sparks[5];
+	T_Anim fire = T_Anim();
 
 
 public:
@@ -44,5 +36,10 @@ public:
 	//描画
 	void Draw()const;
 	
+	//アニメーションの更新
+	void UpdateAnim();
+
+	//構造体の初期化
+	void InitAnim();
 };
 

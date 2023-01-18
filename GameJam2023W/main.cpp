@@ -4,6 +4,8 @@
 #include "GameEnd.h"
 #include "padkey.h"
 
+#include "Fire.h"
+
 /***********************************************
  * プログラムの開始
  ***********************************************/
@@ -28,6 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//シーンマネージャーの確保
 	SceneManager* sceneManager = new SceneManager();
 
+	Fire fire;
 	// ゲームループ
 	while (ProcessMessage() == 0 &&
 		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ &&
@@ -37,8 +40,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		padkey::UpdataKey();
 		ClearDrawScreen();
 
+
 		sceneManager->Update();
 		sceneManager->Draw();
+		fire.Update();
+		fire.Draw();
+
 
 		/*DrawString(0, 0, "FirstCommit", 0xFFFFFF);*/
 
