@@ -15,7 +15,7 @@ GameClear::GameClear()
 	now = PadInput();
 	keyflg = now&~old;*/
 	count = 0;
-	GHandle = LoadGraph("images/game jam/背景/夜景　草むら.jpg");
+	GHandle = LoadGraph("images/game jam/背景/クリア クリアリザルト画面.png");
 }
 
 //-------------------
@@ -32,6 +32,7 @@ void GameClear::Update()
 void GameClear::Draw() const
 {
 	DrawGraph(0, 0, GHandle, TRUE);
+	ten();
 	SetFontSize(50);
 	DrawString(500, 300, "Game Clear!", 0xffffff);
 }
@@ -51,18 +52,15 @@ AbstractScene* GameClear::ChangeScene()
 
 void GameClear::ten() const
 {
-	static int count;
-	if (count++ < 70)
-	{
-		SetFontSize(32);
-		DrawString(400, 660, "-- Bボタンでタイトルに戻る --", 0xffffff);
+	static int count = 0;
+	if (count++ < 70) {
+		SetFontSize(35);
+		DrawString(350, 660, "-- Bボタンを押してリザルトに進む --", 0xffffff);
 	}
-	else if (count++ < 140)
-	{
+	if (count++ < 140) {
 
 	}
-	else if (count == 210)
-	{
+	if (count == 210) {
 		count = 0;
 	}
 	

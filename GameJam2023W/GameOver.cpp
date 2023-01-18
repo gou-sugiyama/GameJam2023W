@@ -3,6 +3,7 @@
 #include "Title.h"
 #include "result.h"
 #include "padkey.h"
+#include "over_result.h"
 
 
 //-------------------
@@ -14,7 +15,6 @@ GameOver::GameOver()
 	cr = GetColor(255, 255, 255);
 	a = 0;
 	b = 0;
-	GHandle = LoadGraph("images/game jam/背景/草むら.jpg");
 }
 
 //-------------------
@@ -22,11 +22,6 @@ GameOver::GameOver()
 //-------------------
 void GameOver::Update()
 {
-	t++;
-	if (t > 180)
-	{
-		sceneFlg = true;
-	}
 	ten();
 }
 
@@ -35,10 +30,9 @@ void GameOver::Update()
 //-------------------
 void GameOver::Draw() const
 {
-	DrawGraph(0, 0, GHandle, TRUE);
 	ten();
 	SetFontSize(50);
-	DrawString(510, 300, "Game Over", 0xffffff);
+	DrawString(510, 300, "Game Over", 0xfffff0);
 }
 
 void GameOver::ten() const
@@ -46,7 +40,7 @@ void GameOver::ten() const
 	static int count = 0;
 	if (count++ < 70) {
 		SetFontSize(35);
-		DrawString(370, 660, "-- Bボタンを押してリザルトに進む --", 0xffffff);
+		DrawString(330, 660, "-- Bボタンを押してリザルトに進む --", 0xfffff0);
 	}
 	if (count++ < 140) {
 
@@ -64,7 +58,7 @@ AbstractScene* GameOver::ChangeScene()
 {
 	if (padkey::OnClick(XINPUT_BUTTON_B))
 	{
-		return new result();
+		return new over_result;
 	}
 	return this;
 }

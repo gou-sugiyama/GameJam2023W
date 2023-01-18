@@ -48,7 +48,6 @@ void Title::Update()
 void Title::Draw() const 
 {
 	DrawString(0, 20, "TitleScene", 0xffffff);
-
 	DrawTriangle(100, 50 + MenuY, 120, 55 + MenuY, 100, 60 + MenuY, 0xffffff, true);
 }
 

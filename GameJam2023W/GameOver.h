@@ -4,8 +4,6 @@ class GameOver :
 	public AbstractScene
 {
 private:
-	int t = 0; //TODO:Á‚µ‚Ä‚Ë
-	bool sceneFlg = false; //TODO:Á‚µ‚Ä‚Ë
 	int cr;
 	int a;
 	int b;
