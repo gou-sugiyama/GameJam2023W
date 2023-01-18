@@ -16,7 +16,7 @@ Fuses::Fuses()
 	fuseImages[D_ON_FUSE_LEFT]		 = LoadGraph("images/fuse_left.png");
 	fuseImages[D_BUREND_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
 	fuseImages[D_ON_FUSE_RIGHT]		 = LoadGraph("images/fuse_right.png");
-	fuseNum = 4;
+	fuseNum = 10;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
@@ -155,10 +155,7 @@ void Fuses::DrawFuses() const
 {
 	int center = D_SCREEN_WIDTH / 2;
 	int sideShift = fusesArrayMax / 2;  //表示上の計算で、小数点以下切り捨て
-	if (fuseNum % 2 == 1)
-	{
-		center += D_FUSESIZE / 2;	//表示上の問題
-	}
+	
 
 	for (int i = 0; i < fusesArrayMax; i++)
 	{
