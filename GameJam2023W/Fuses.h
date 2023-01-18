@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <stack>
 #include "common.h"
+#include "T_Pos.h"
 #include "Fire.h"
 using namespace std;
 
@@ -30,22 +32,29 @@ using namespace std;
 #define D_FUSE_NUM_MIN 3  //導火線の最小本数
 #define D_FUSE_LENGTH 10  //導火線の長さ
 
-struct T_Pos
+struct T_FusesIndex
 {
-	float x;
-	float y;
+	int x;
+	int y;
+
+	T_FusesIndex(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+
 };
 
 class Fuses
 {
 private:
 	vector<Fire*> fire;
-	int fuseImages[6];//TODO:burnedの画像追加して配列にする
+	vector<T_FusesIndex> current;
+	int fuseImages[6];
 	int fuseNum;	//本数
 	int fusesArrayMax;
 	int** fuses;
 	int timeToSpreadOut;
-
 public:
 	//コンストラクタ
 	Fuses();
@@ -67,10 +76,19 @@ public:
 	void DeleteFuses();
 
 	//着火
-	void Ignite(int index);
+	void Ignite(int fuseNum);
+
+	//火の生成
+	void NewFire(T_Pos pos);
 
 	//描画位置の作成
-	T_Pos MakeDrawPos(int index);
+	T_Pos MakePos(int fusesX,int fusesY);
+
+	//役目を終えた火を鎮火する
+	void Extinguishing();
+
+	//火の延焼
+	void SpreadFlames();
 
 	//導火線の描画
 	void DrawFuses() const;

@@ -65,9 +65,9 @@ void GameMain::Draw() const
 
 	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: Á‚µ‚Ä
 	
-	LoadEnemyImages();
-	DrawEnemy();
-	EnemyDamage();
+	//LoadEnemyImages();
+	//DrawEnemy();
+	//EnemyDamage();
 }
 
 //-------------------

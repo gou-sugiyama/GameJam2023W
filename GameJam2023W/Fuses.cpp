@@ -20,8 +20,10 @@ Fuses::Fuses()
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
 
+
 	Ignite(0);
 	Ignite(1);
+	Ignite(2);
 }
 
 //---------------------------
@@ -43,13 +45,18 @@ Fuses::~Fuses()
 //---------------------------
 void Fuses::Update()
 {
-	timeToSpreadOut++;
-
 	vector<Fire*>::iterator it = fire.begin();
 	for (; it != fire.end(); it++)
 	{
 		(*it)->Update();
 	}
+
+	timeToSpreadOut++;
+	if (timeToSpreadOut % 30 == 0)
+	{
+		SpreadFlames();
+	}
+	Extinguishing();
 }
 
 //---------------------------
@@ -162,23 +169,76 @@ void Fuses::DeleteFuses()
 //-------------------------------------------
 // 着火　引数：左から何番目か (0始まり)
 //-------------------------------------------
-void Fuses::Ignite(int index)
+void Fuses::Ignite(int fuseNum)
 {
-	T_Pos pos = MakeDrawPos(index);
-	fire.push_back(new Fire(pos.x,pos.y));
+	int index = fuseNum * 2; //本数を受け取って、配列の添え字に直す
+	T_Pos pos = MakePos(index, D_FUSE_LENGTH - 1);
+
+	//火を作る
+	fire.push_back(new Fire(pos, D_DIRECTION_UP));
+	(*--fire.end())->SetFrame((D_FUSE_LENGTH - 1) * 30);	//vec.end()には何も入ってないから-1する
+	current.push_back(T_FusesIndex(index, D_FUSE_LENGTH - 1));
+
+	fuses[index][D_FUSE_LENGTH - 1] -= 1;
+}
+
+//-----------------------------------------------------
+// 火の生成 引数：fusesの中のどこを燃やすか
+//-----------------------------------------------------
+void Fuses::NewFire(T_Pos pos)
+{
+
 }
 
 //-----------------------------------
 // 描画位置の作成（火花用）
 //-----------------------------------
-T_Pos Fuses::MakeDrawPos(int index)
+T_Pos Fuses::MakePos(int fusesX,int fusesY)
 {
 	T_Pos pos;
 	int sideShift = fusesArrayMax / 2;
-	pos.x = D_FUSES_CENTER + D_FUSESIZE * (index * 2 - sideShift);//index * 2は間隔分も計算するため
-	pos.y = D_FUSES_FIRST_Y + D_FUSESIZE * (D_FUSE_LENGTH - 1);//0始まりのため -1
+	pos.x = (float)(D_FUSES_CENTER + D_FUSESIZE * (fusesX - sideShift));
+	pos.y = (float)(D_FUSES_FIRST_Y + D_FUSESIZE * fusesY);
 
 	return pos;
+}
+
+//------------------------------------
+// 役目を終えた火を鎮火する
+//------------------------------------
+void Fuses::Extinguishing()
+{
+	for (auto it = fire.begin(); it != fire.end(); it++)
+	{
+		if ((*it)->GetDeleteFlg() == true)
+		{
+			delete* it;
+			fire.erase(it);
+			Extinguishing();
+			break;
+		}
+	}
+}
+
+//------------------------------
+// 延焼
+//------------------------------
+void Fuses::SpreadFlames()
+{
+	for (auto it = current.begin(); it != current.end(); it++)
+	{
+		//上・右・下・左を確認して燃え広がる
+		if ((*it).y - 1 >= 0
+			&& fuses[(*it).x][(*it).y - 1] == D_ON_FUSE
+			|| fuses[(*it).x][(*it).y - 1] == D_ON_FUSE_LEFT
+			|| fuses[(*it).x][(*it).y - 1] == D_ON_FUSE_RIGHT
+			)
+		{
+			
+			fuses[(*it).x][(*it).y - 1] -= 1;
+			(*it).y -= 1;
+		}
+	}
 }
 
 //----------------------
