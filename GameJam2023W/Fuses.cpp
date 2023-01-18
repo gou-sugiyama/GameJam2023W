@@ -19,6 +19,7 @@ Fuses::Fuses()
 	fuseNum = 10;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
+	timeToSpreadOut = 0;
 }
 
 //---------------------------
@@ -34,7 +35,7 @@ Fuses::~Fuses()
 //---------------------------
 void Fuses::Update()
 {
-
+	timeToSpreadOut++;
 }
 
 //---------------------------
@@ -134,6 +135,14 @@ void Fuses::DeleteFuses()
 		delete[] fuses[i];
 	}
 	delete[] fuses;
+}
+
+//-------------------------------------------
+// ’…‰Î@ˆø”F¶‚©‚ç‰½”Ô–Ú‚© (0n‚Ü‚è)
+//-------------------------------------------
+void Fuses::Ignite(int index)
+{
+
 }
 
 //----------------------
