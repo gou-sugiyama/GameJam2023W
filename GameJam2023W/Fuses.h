@@ -58,5 +58,13 @@ public:
 	//導火線の描画
 	void DrawFuses() const;
 
+
+
+	//ゲッター・セッター
+	int GetFuseNum()
+	{
+		return fuseNum;
+	}
+
 };
 
