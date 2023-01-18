@@ -33,6 +33,7 @@ private:
 	int fuseNum;	//本数
 	int fusesArrayMax;
 	int** fuses;
+	int timeToSpreadOut;
 
 public:
 	//コンストラクタ
@@ -53,6 +54,9 @@ public:
 
 	//導火線の削除
 	void DeleteFuses();
+
+	//着火
+	void Ignite(int index);
 
 
 	//導火線の描画
