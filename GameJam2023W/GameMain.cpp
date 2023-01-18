@@ -46,7 +46,7 @@ void GameMain::Update()
 	{
 		if (--gFire < 0) gFire = gFuse;
 	}
-	gFireX = 255 + (40 * (2 % gFuse)) + gFire * 80;
+	gFireX = 255 + (40 * ((gFuse + 1) % 2)) + (80 * ((10 - (gFuse + 1)) / 2)) + gFire * 80;
 }
 
 //-------------------
