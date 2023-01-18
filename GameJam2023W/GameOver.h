@@ -9,7 +9,7 @@ private:
 	int cr;
 	int a;
 	int b;
-	int count;
+	int GHandle;
 
 public:
 	//コンストラクタ

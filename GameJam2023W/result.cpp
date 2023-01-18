@@ -1,6 +1,7 @@
 #include "result.h"
 #include "DxLib.h"
 #include "Title.h"
+#include "padkey.h"
 
 result::result() 
 {
@@ -13,38 +14,42 @@ result::result()
 
 void result::Update()
 {
-	if (count++<30)
-	{
-		ten();
-	}
-	else if (count<60) 
-	{
-
-	}
-	else if(count<90)
-	{
-		count = 0;
-	}
+	ten();
 }
 
 
 void result::Draw() const
 {
+	DrawGraph(0, 0, GHandle, TRUE);
+	ten();
 	DrawFormatString(400, 450, cr, "倒した敵の数:%d", b);
 	DrawFormatString(720, 450, cr, "スコア:%d", a);
 }
 
 AbstractScene* result::ChangeScene()
 {
-	if (sceneFlg)
+	if (padkey::OnClick(XINPUT_BUTTON_B))
 	{
-		return this;
+		return new Title;
 	}
 	return this;
 }
 
 void result::ten() const
 {
-	SetFontSize(32);
-	DrawString(400, 660, "-- Bボタンでタイトルに戻る --", 0xffffff);
+	static int count;
+	if (count++ < 70)
+	{
+		SetFontSize(32);
+		DrawString(400, 660, "-- Bボタンでタイトルに戻る --", 0xffffff);
+	}
+	else if (count < 140)
+	{
+
+	}
+	else if (count < 210)
+	{
+		count = 0;
+	}
+	
 }

@@ -3,6 +3,7 @@
 #include "Title.h"
 #include "GameOver.h"
 #include "result.h"
+#include "padkey.h"
 
 
 //-------------------
@@ -14,6 +15,7 @@ GameClear::GameClear()
 	now = PadInput();
 	keyflg = now&~old;*/
 	count = 0;
+	GHandle = LoadGraph("images/game jam/背景/夜景　草むら.jpg");
 }
 
 //-------------------
@@ -21,25 +23,7 @@ GameClear::GameClear()
 //-------------------
 void GameClear::Update()
 {
-	t++;
-	if (t > 180)
-	{
-		sceneFlg = true;
-	}
-
-
-	if (count++<30)
-	{
-		ten();
-	}
-	else if(count++<60)
-	{
-		
-	}
-	else if(count==90)
-	{
-		count = 0;
-	}
+	ten();
 }
 
 //-------------------
@@ -47,6 +31,7 @@ void GameClear::Update()
 //-------------------
 void GameClear::Draw() const
 {
+	DrawGraph(0, 0, GHandle, TRUE);
 	SetFontSize(50);
 	DrawString(500, 300, "Game Clear!", 0xffffff);
 }
@@ -56,9 +41,9 @@ void GameClear::Draw() const
 //-------------------
 AbstractScene* GameClear::ChangeScene()
 {
-	if (sceneFlg)
+	if (padkey::OnClick(XINPUT_BUTTON_B))
 	{
-		return new result();
+		return new result;
 	}
 	return this;
 	
@@ -66,6 +51,19 @@ AbstractScene* GameClear::ChangeScene()
 
 void GameClear::ten() const
 {
-	SetFontSize(32);
-	DrawString(400, 660, "-- Bボタンでタイトルに戻る --", 0xffffff);
+	static int count;
+	if (count++ < 70)
+	{
+		SetFontSize(32);
+		DrawString(400, 660, "-- Bボタンでタイトルに戻る --", 0xffffff);
+	}
+	else if (count++ < 140)
+	{
+
+	}
+	else if (count == 210)
+	{
+		count = 0;
+	}
+	
 }

@@ -4,9 +4,8 @@ class GameClear :
 	public AbstractScene
 {
 private:
-	int t = 0; //TODO:消してね
-	bool sceneFlg = false; //TODO:消してね
 	int count;
+	int GHandle;
 
 public:
 	//コンストラクタ

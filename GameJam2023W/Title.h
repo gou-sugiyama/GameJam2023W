@@ -8,6 +8,7 @@ private:
 	bool sceneCHG;   //シーン変更値
 
 	int DebagCount;
+	//int GHandle;
 
 public:
 	Title();

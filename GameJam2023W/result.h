@@ -8,6 +8,7 @@ private:
 	int cr;
 	bool sceneFlg;
 	int count;
+	int GHandle;
 
 public:
 	result();

@@ -67,7 +67,7 @@ AbstractScene* Title::ChangeScene()
 		if (SelectY == 2) {
 			return new GameEnd;
 		}*/
-		return new Help;
+		return new GameClear;
 	}
 
 	return this;
