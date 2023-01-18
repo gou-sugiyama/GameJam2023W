@@ -37,7 +37,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		sceneManager->Draw();
 
 		DrawString(0, 0, "FirstCommit", 0xFFFFFF);
-
 		ScreenFlip();			// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f
 	}
 

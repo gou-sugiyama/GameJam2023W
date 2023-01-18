@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "GameMain.h"
 #include "Title.h"
-
+#include "Enemy.h"
 
 //-------------------
 // コンストラクタ
@@ -29,6 +29,10 @@ void GameMain::Update()
 void GameMain::Draw() const
 {
 	DrawString(0, 20, "GamaMainScene", 0xffffff);
+	
+	LoadEnemyImages();
+	DrawEnemy();
+	EnemyDamage();
 }
 
 //-------------------
