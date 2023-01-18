@@ -5,10 +5,12 @@
 #include "GameOver.h"
 #include "padkey.h"
 #include "common.h"
+#include "Fuses.h"
 
 int	gFire = 0;
 int gFireX;				// カーソルのX座標
-int gFuse = 4;
+int gFuse = 0;
+
 //-------------------
 // コンストラクタ
 //-------------------
@@ -31,6 +33,7 @@ GameMain::~GameMain()
 void GameMain::Update()
 {
 	fuses->Update();
+	gFuse = fuses->GetFuseNum() - 1;
 	if (padkey::OnClick(XINPUT_BUTTON_Y))
 	{
 		sceneFlg = true;
@@ -43,8 +46,7 @@ void GameMain::Update()
 	{
 		if (--gFire < 0) gFire = gFuse;
 	}
-	gFireX = 300 + gFire * 150;
-	DrawBox(gFireX, 580, gFireX + 100, 680, 0xff0000, FALSE);
+	gFireX = 255 + (40 * (2 % gFuse)) + gFire * 80;
 }
 
 //-------------------
@@ -57,6 +59,8 @@ void GameMain::Draw() const
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
 	DrawString(0, 20, "GameMainScene", 0xffffff);
+
+	DrawBox(gFireX, 630, gFireX + 50, 680, 0xff0000, FALSE);
 
 	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: 消して
 }
