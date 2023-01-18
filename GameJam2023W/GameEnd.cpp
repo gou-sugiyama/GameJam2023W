@@ -1,7 +1,6 @@
 #include "DxLib.h"
 #include "GameEnd.h"
 #include "Title.h"
-#include "Help.h"
 
 int GameEnd::END;
 
