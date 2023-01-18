@@ -14,7 +14,15 @@ int gFuse = 4;
 //-------------------
 GameMain::GameMain()
 {
+	fuses = new Fuses();
+}
 
+//-------------------
+// デストラクタ
+//-------------------
+GameMain::~GameMain()
+{
+	delete fuses;
 }
 
 //-------------------
@@ -22,6 +30,7 @@ GameMain::GameMain()
 //-------------------
 void GameMain::Update()
 {
+	fuses->Update();
 	if (padkey::OnClick(XINPUT_BUTTON_Y))
 	{
 		sceneFlg = true;
@@ -43,6 +52,7 @@ void GameMain::Update()
 //-------------------
 void GameMain::Draw() const
 {
+	fuses->Draw();
 	DrawString(0, 20, "GamaMainScene", 0xffffff);
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
