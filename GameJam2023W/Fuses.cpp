@@ -16,7 +16,7 @@ Fuses::Fuses()
 	fuseImages[D_ON_FUSE_LEFT]		 = LoadGraph("images/fuse_left.png");
 	fuseImages[D_BUREND_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
 	fuseImages[D_ON_FUSE_RIGHT]		 = LoadGraph("images/fuse_right.png");
-	fuseNum = 10;
+	fuseNum = 4;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
@@ -36,6 +36,7 @@ Fuses::~Fuses()
 void Fuses::Update()
 {
 	timeToSpreadOut++;
+
 }
 
 //---------------------------
@@ -46,20 +47,22 @@ void Fuses::Draw() const
 
 	DrawFuses();
 
-//#define _DEBUG_
+#define _DEBUG_
 #ifdef _DEBUG_
-	for (int i = 0; i < fusesArrayMax; i++)
-	{
-		for (int j = 0; j < D_FUSE_LENGTH; j++)
-		{
-			//if (i % 2 == 0)
-			{
-				DrawFormatString(D_FUSES_FIRST_X + 30 * i,
-					D_FUSES_FIRST_Y + 30 * j, 0xffffff,
-					"%d", fuses[i][j]);
-			}
-		}
-	}
+	//for (int i = 0; i < fusesArrayMax; i++)
+	//{
+	//	for (int j = 0; j < D_FUSE_LENGTH; j++)
+	//	{
+	//		//if (i % 2 == 0)
+	//		{
+	//			DrawFormatString(D_FUSES_FIRST_X + 30 * i,
+	//				D_FUSES_FIRST_Y + 30 * j, 0xffffff,
+	//				"%d", fuses[i][j]);
+	//		}
+	//	}
+	//}
+
+	DrawPixel(D_SCREEN_WIDTH / 2, D_SCREEN_HEIGHT / 2, 0xff0000);
 #endif
 }
 
@@ -150,6 +153,13 @@ void Fuses::Ignite(int index)
 //----------------------
 void Fuses::DrawFuses() const
 {
+	int center = D_SCREEN_WIDTH / 2;
+	int sideShift = fusesArrayMax / 2;  //表示上の計算で、小数点以下切り捨て
+	if (fuseNum % 2 == 1)
+	{
+		center += D_FUSESIZE / 2;	//表示上の問題
+	}
+
 	for (int i = 0; i < fusesArrayMax; i++)
 	{
 		for (int j = 0; j < D_FUSE_LENGTH; j++)
@@ -160,13 +170,13 @@ void Fuses::DrawFuses() const
 				//縦の導火線
 				if (i % 2 == 0)
 				{
-					DrawRotaGraph(D_FUSES_FIRST_X + 40 * i,
+					DrawRotaGraph(center + 40 * (i - sideShift),
 						D_FUSES_FIRST_Y + 40 * j,
 						1.0, 0, fuseImages[fuses[i][j]], TRUE);
 				}
 				else //横の導火線
 				{
-					DrawRotaGraph(D_FUSES_FIRST_X + 40 * i,
+					DrawRotaGraph(center + 40 * (i - sideShift),
 						D_FUSES_FIRST_Y + 40 * j,
 						1.0, M_PI / 180 * 90, fuseImages[fuses[i][j]], TRUE);
 				}
