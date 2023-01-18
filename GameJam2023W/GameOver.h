@@ -4,12 +4,10 @@ class GameOver :
 	public AbstractScene
 {
 private:
-	int t = 0; //TODO:消してね
-	bool sceneFlg = false; //TODO:消してね
 	int cr;
 	int a;
 	int b;
-	int count;
+	int GHandle;
 
 public:
 	//コンストラクタ

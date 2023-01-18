@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractScene.h"
-class result:public AbstractScene
+class over_result:public AbstractScene
 {
 private:
 	int a;
@@ -11,8 +11,8 @@ private:
 	int GHandle;
 
 public:
-	result();
-	~result() {}
+	over_result();
+	~over_result() {}
 	void Update() override;
 	void Draw() const override;
 	void ten() const;

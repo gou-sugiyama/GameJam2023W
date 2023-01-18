@@ -1,33 +1,30 @@
-#include "result.h"
-#include "DxLib.h"
+#include "over_result.h"
 #include "Title.h"
 #include "padkey.h"
 
-result::result() 
+over_result::over_result()
 {
 	a = 0;
 	b = 0;
 	cr = GetColor(255, 255, 255);
 	sceneFlg = false;
 	count = 0;
-	GHandle = LoadGraph("images/game jam/背景/クリア クリアリザルト画面.png");
 }
 
-void result::Update()
+void over_result::Update()
 {
 	ten();
 }
 
 
-void result::Draw() const
+void over_result::Draw() const
 {
-	DrawGraph(0, 0, GHandle, TRUE);
 	ten();
 	DrawFormatString(400, 350, cr, "倒した敵の数:%d", b);
 	DrawFormatString(720, 350, cr, "スコア:%d", a);
 }
 
-AbstractScene* result::ChangeScene()
+AbstractScene* over_result::ChangeScene()
 {
 	if (padkey::OnClick(XINPUT_BUTTON_B))
 	{
@@ -36,7 +33,7 @@ AbstractScene* result::ChangeScene()
 	return this;
 }
 
-void result::ten() const
+void over_result::ten() const
 {
 	static int count;
 	if (count++ < 70)
@@ -52,5 +49,5 @@ void result::ten() const
 	{
 		count = 0;
 	}
-	
+
 }

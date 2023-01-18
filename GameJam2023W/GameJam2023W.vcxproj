@@ -146,6 +146,7 @@
     <ClInclude Include="Fuses.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Help.h" />
+    <ClInclude Include="over_result.h" />
     <ClInclude Include="padkey.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="result.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="over_result.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="padkey.cpp" />
     <ClCompile Include="SceneManager.cpp" />
