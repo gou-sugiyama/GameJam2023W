@@ -29,7 +29,7 @@ public:
 	//コンストラクタ
 	Fire();
 	//デストラクタ
-	~Fire() {};
+	~Fire();
 
 	//更新
 	void Update();

@@ -14,6 +14,14 @@ Fire::Fire()
 //--------------------
 // デストラクタ
 //--------------------
+Fire::~Fire()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		delete[] sparks[i].sprites;
+	}
+	delete[] fire.sprites;
+}
 
 
 //--------------------
@@ -111,6 +119,14 @@ void Fire::InitAnim()
 	sparks[4].sprites[1].image = LoadGraph("images/sparks/spark_10.png");
 	sparks[4].sprites[1].next = 0;
 
-	//fire.sprites = new int[3];
+	fire.sprites = new T_Image[4];
+	fire.sprites[0].image = LoadGraph("images/fires/fire_1.png");
+	fire.sprites[0].next = 1;
+	fire.sprites[1].image = LoadGraph("images/fires/fire_2.png");
+	fire.sprites[1].next = 2;
+	fire.sprites[2].image = LoadGraph("images/fires/fire_3.png");
+	fire.sprites[2].next = 3;
+	fire.sprites[3].image = fire.sprites[1].image;
+	fire.sprites[3].next = 0;
 
 }
