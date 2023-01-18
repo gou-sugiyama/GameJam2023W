@@ -6,6 +6,7 @@
 #include "padkey.h"
 #include "common.h"
 #include "Fuses.h"
+#include "Enemy.h"
 
 int	gFire = 0;
 int gFireX;				// カーソルのX座標
@@ -63,6 +64,10 @@ void GameMain::Draw() const
 	DrawBox(gFireX, 630, gFireX + 50, 680, 0xff0000, FALSE);
 
 	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: 消して
+	
+	LoadEnemyImages();
+	DrawEnemy();
+	EnemyDamage();
 }
 
 //-------------------
