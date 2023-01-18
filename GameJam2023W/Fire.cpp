@@ -6,6 +6,9 @@
 //--------------------
 Fire::Fire()
 {
+	x = 600;
+	y = 360;
+
 	animTimer = 0;
 
 	InitAnim();
@@ -38,9 +41,13 @@ void Fire::Update()
 //--------------------
 void Fire::Draw()const
 {
+
+	DrawRotaGraph(x, y, 1.0 / 200 * 160, 0,
+		fire.sprites[fire.current].image, TRUE);
+
 	for (int i = 0; i < 5; i++)
 	{
-		DrawRotaGraph(640, 360, 1.0 / 200 * 120, 0,
+		DrawRotaGraph(x, y, 1.0 / 200 * 140, 0,
 			sparks[i].sprites[sparks[i].current].image, TRUE);
 	}
 
@@ -52,6 +59,8 @@ void Fire::Draw()const
 void Fire::UpdateAnim()
 {
 	animTimer++;
+
+	//火花の更新
 	if (animTimer % 20 == 0)
 	{
 		sparks[0].current = sparks[0].sprites[sparks[0].current].next;
@@ -75,6 +84,12 @@ void Fire::UpdateAnim()
 	if (animTimer % 4 == 0)
 	{
 		sparks[4].current = sparks[4].sprites[sparks[4].current].next;
+	}
+
+	//火の更新
+	if (animTimer % 15 == 0)
+	{
+		fire.current = fire.sprites[fire.current].next;
 	}
 }
 
