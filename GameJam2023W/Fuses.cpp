@@ -4,7 +4,6 @@
 #include "Fuses.h"
 #include "common.h"
 
-
 //---------------------------
 // コンストラクタ
 //---------------------------
@@ -20,6 +19,9 @@ Fuses::Fuses()
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
+
+	Ignite(0);
+	Ignite(1);
 }
 
 //---------------------------
@@ -28,6 +30,12 @@ Fuses::Fuses()
 Fuses::~Fuses()
 {
 	DeleteFuses();
+
+	vector<Fire*>::iterator it = fire.begin();
+	for (; it != fire.end(); it++)
+	{
+		delete* it;
+	}
 }
 
 //---------------------------
@@ -37,6 +45,11 @@ void Fuses::Update()
 {
 	timeToSpreadOut++;
 
+	vector<Fire*>::iterator it = fire.begin();
+	for (; it != fire.end(); it++)
+	{
+		(*it)->Update();
+	}
 }
 
 //---------------------------
@@ -47,6 +60,12 @@ void Fuses::Draw() const
 
 	DrawFuses();
 
+	
+	for (auto it = fire.begin(); it != fire.end(); it++)
+	{
+		(*it)->Draw();
+	}
+
 #define _DEBUG_
 #ifdef _DEBUG_
 	//for (int i = 0; i < fusesArrayMax; i++)
@@ -55,8 +74,8 @@ void Fuses::Draw() const
 	//	{
 	//		//if (i % 2 == 0)
 	//		{
-	//			DrawFormatString(D_FUSES_FIRST_X + 30 * i,
-	//				D_FUSES_FIRST_Y + 30 * j, 0xffffff,
+	//			DrawFormatString(D_FUSES_FIRST_X + 40 * i,
+	//				D_FUSES_FIRST_Y + 40 * j, 0xFFFF00,
 	//				"%d", fuses[i][j]);
 	//		}
 	//	}
@@ -145,7 +164,21 @@ void Fuses::DeleteFuses()
 //-------------------------------------------
 void Fuses::Ignite(int index)
 {
+	T_Pos pos = MakeDrawPos(index);
+	fire.push_back(new Fire(pos.x,pos.y));
+}
 
+//-----------------------------------
+// 描画位置の作成（火花用）
+//-----------------------------------
+T_Pos Fuses::MakeDrawPos(int index)
+{
+	T_Pos pos;
+	int sideShift = fusesArrayMax / 2;
+	pos.x = D_FUSES_CENTER + D_FUSESIZE * (index * 2 - sideShift);//index * 2は間隔分も計算するため
+	pos.y = D_FUSES_FIRST_Y + D_FUSESIZE * (D_FUSE_LENGTH - 1);//0始まりのため -1
+
+	return pos;
 }
 
 //----------------------
@@ -153,7 +186,6 @@ void Fuses::Ignite(int index)
 //----------------------
 void Fuses::DrawFuses() const
 {
-	int center = D_SCREEN_WIDTH / 2;
 	int sideShift = fusesArrayMax / 2;  //表示上の計算で、小数点以下切り捨て
 	
 
@@ -167,18 +199,23 @@ void Fuses::DrawFuses() const
 				//縦の導火線
 				if (i % 2 == 0)
 				{
-					DrawRotaGraph(center + 40 * (i - sideShift),
+					DrawRotaGraph(D_FUSES_CENTER + 40 * (i - sideShift),
 						D_FUSES_FIRST_Y + 40 * j,
 						1.0, 0, fuseImages[fuses[i][j]], TRUE);
 				}
 				else //横の導火線
 				{
-					DrawRotaGraph(center + 40 * (i - sideShift),
+					DrawRotaGraph(D_FUSES_CENTER + 40 * (i - sideShift),
 						D_FUSES_FIRST_Y + 40 * j,
 						1.0, M_PI / 180 * 90, fuseImages[fuses[i][j]], TRUE);
 				}
 			}
+#ifdef _DEBUG_
 
+			DrawFormatString(D_FUSES_CENTER + 40 * (i - sideShift),
+				D_FUSES_FIRST_Y + 40 * j,
+				0xFFFF00, "%d", fuses[i][j]);
+#endif
 			
 		}
 	}

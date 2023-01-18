@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
 #include "common.h"
+#include "Fire.h"
+using namespace std;
 
 //画像サイズ
 #define D_FUSESIZE D_SCREEN_HEIGHT / 18		//720のとき40
@@ -10,6 +13,7 @@
 #define D_FUSES_LAST_X 280 + 760 //first + fuse全体幅
 #define D_FUSES_LAST_Y D_SCREEN_HEIGHT - D_FUSESIZE			//720のとき
 #define D_FUSES_FIRST_Y D_FUSES_LAST_Y - 400	//fuseの下端の座標 - fuse全体高さ
+#define D_FUSES_CENTER D_SCREEN_WIDTH / 2
 //------------------------------------------------------------------------------------------------
 
 //配列のステータス-------------
@@ -26,9 +30,16 @@
 #define D_FUSE_NUM_MIN 3  //導火線の最小本数
 #define D_FUSE_LENGTH 10  //導火線の長さ
 
+struct T_Pos
+{
+	float x;
+	float y;
+};
+
 class Fuses
 {
 private:
+	vector<Fire*> fire;
 	int fuseImages[6];//TODO:burnedの画像追加して配列にする
 	int fuseNum;	//本数
 	int fusesArrayMax;
@@ -58,10 +69,11 @@ public:
 	//着火
 	void Ignite(int index);
 
+	//描画位置の作成
+	T_Pos MakeDrawPos(int index);
 
 	//導火線の描画
 	void DrawFuses() const;
-
 
 
 	//ゲッター・セッター

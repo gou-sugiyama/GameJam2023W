@@ -71,12 +71,12 @@ void Fire::Update()
 void Fire::Draw()const
 {
 
-	DrawRotaGraphF(x, y + pivotY, 1.0 / 200 * 160, 0, 
+	DrawRotaGraphF(x + pivotX , y + pivotY, 1.0 / 200 * 160, 0,
 		fire.sprites[fire.current].image, TRUE);
 
 	for (int i = 0; i < 5; i++)
 	{
-		DrawRotaGraphF(x, y + pivotY, 1.0 / 200 * 140, 0,
+		DrawRotaGraphF(x + pivotX, y + pivotY, 1.0 / 200 * 140, 0,
 			sparks[i].sprites[sparks[i].current].image, TRUE);
 	}
 

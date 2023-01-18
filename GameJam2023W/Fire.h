@@ -18,7 +18,8 @@ class Fire
 private:
 	float x;
 	float y;
-	const float pivotY = -20;
+	const float pivotY = -10;
+	const float pivotX = 8;
 	float speedX;
 	float speedY;
 	int frame;
