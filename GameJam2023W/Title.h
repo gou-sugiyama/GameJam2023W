@@ -8,8 +8,15 @@ private:
 	int OldY;
 	int InputY;
 	int FlgY;
+	int SceneCHGCount;
+	bool SceneCHGFlg;
 
-	int DebagCount;
+	int Titleimg;     //タイトルイメージ
+	int TitleNameimg; //タイトルネームイメージ
+	int Startimg;     //スタートイメージ
+	int Helpimg;      //ヘルプイメージ
+	int Endimg;       //エンドイメージ
+	int Carsorimg;    //カーソルイメージ
 
 public:
 	Title();
@@ -21,5 +28,6 @@ public:
 	void Draw() const override;					//描画の更新処理
 	AbstractScene* ChangeScene() override;		//シーンの変更処理
 
+	void Flashing() const;  //画像の点滅処理
 	void Pad();
 };
