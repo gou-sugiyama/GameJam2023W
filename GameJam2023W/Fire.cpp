@@ -8,6 +8,25 @@ Fire::Fire()
 {
 	x = 600;
 	y = 360;
+	speedX = 0;
+	speedY = 0;
+	frame = 0;
+
+	animTimer = 0;
+
+	InitAnim();
+}
+
+//-------------------
+// コンストラクタ
+//-------------------
+Fire::Fire(float x, float y)
+{
+	this->x = x;
+	this->y = y;
+	speedX = 0;
+	speedY = 0;
+	frame = 0;
 
 	animTimer = 0;
 
@@ -33,6 +52,16 @@ Fire::~Fire()
 void Fire::Update()
 {
 	UpdateAnim();
+	Move();
+	if (frame > 0)
+	{
+		frame--;
+	}
+	else
+	{
+		speedX = 0;
+		speedY = 0;
+	}
 
 }
 
@@ -42,12 +71,12 @@ void Fire::Update()
 void Fire::Draw()const
 {
 
-	DrawRotaGraph(x, y, 1.0 / 200 * 160, 0,
+	DrawRotaGraphF(x, y + pivotY, 1.0 / 200 * 160, 0, 
 		fire.sprites[fire.current].image, TRUE);
 
 	for (int i = 0; i < 5; i++)
 	{
-		DrawRotaGraph(x, y, 1.0 / 200 * 140, 0,
+		DrawRotaGraphF(x, y + pivotY, 1.0 / 200 * 140, 0,
 			sparks[i].sprites[sparks[i].current].image, TRUE);
 	}
 
@@ -93,6 +122,28 @@ void Fire::UpdateAnim()
 	}
 }
 
+//-----------------------
+// 移動処理
+//-----------------------
+void Fire::Move()
+{
+	x += speedX;
+	y += speedY;
+}
+
+//----------------------------------------------------------------------
+// 目標座標と移動時間の設定　引数：座標xy 移動にかけるフレーム数
+//----------------------------------------------------------------------
+void Fire::SetTargetPos(float x, float y, int frame)
+{
+	float distanceX = x - this->x;
+	float distanceY = y - this->y;
+
+	speedX = distanceX / frame;
+	speedY = distanceY / frame;
+
+	this->frame = frame;
+}
 
 //------------------------------
 // 構造体の初期化

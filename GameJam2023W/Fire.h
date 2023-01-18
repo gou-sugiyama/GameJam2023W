@@ -16,8 +16,12 @@ struct T_Anim
 class Fire
 {
 private:
-	int x;
-	int y;
+	float x;
+	float y;
+	const float pivotY = -20;
+	float speedX;
+	float speedY;
+	int frame;
 
 	//アニメーション用変数
 	int animTimer;
@@ -28,6 +32,7 @@ private:
 public:
 	//コンストラクタ
 	Fire();
+	Fire(float x, float y);
 	//デストラクタ
 	~Fire();
 
@@ -38,6 +43,12 @@ public:
 	
 	//アニメーションの更新
 	void UpdateAnim();
+
+	//移動処理
+	void Move();
+
+	//目標座標と移動時間の設定
+	void SetTargetPos(float x, float y, int frame);
 
 	//構造体の初期化
 	void InitAnim();

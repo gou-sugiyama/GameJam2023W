@@ -4,8 +4,6 @@
 #include "GameEnd.h"
 #include "padkey.h"
 
-#include "Fire.h"
-
 /***********************************************
  * プログラムの開始
  ***********************************************/
@@ -21,7 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	if (DxLib_Init() == -1) return -1;	// DXライブラリの初期化処理
 
-	SetMouseDispFlag(FALSE);	//マウスカーソル非表示
+	SetMouseDispFlag(TRUE);	//マウスカーソル非表示
 
 	SetDrawScreen(DX_SCREEN_BACK);	// 描画先画面を裏にする
 
@@ -30,7 +28,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//シーンマネージャーの確保
 	SceneManager* sceneManager = new SceneManager();
 
-	Fire fire;
 	// ゲームループ
 	while (ProcessMessage() == 0 &&
 		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ &&
@@ -43,9 +40,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		sceneManager->Update();
 		sceneManager->Draw();
-		fire.Update();
-		fire.Draw();
-
 
 		/*DrawString(0, 0, "FirstCommit", 0xFFFFFF);*/
 
