@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <stack>
 #include "common.h"
+#include "T_Pos.h"
 #include "Fire.h"
 using namespace std;
 
@@ -19,9 +21,9 @@ using namespace std;
 //配列のステータス-------------
 #define D_BURNED 0
 #define D_ON_FUSE 1
-#define D_BUREND_FUSE_LEFT 2
+#define D_BURNED_FUSE_LEFT 2
 #define D_ON_FUSE_LEFT 3
-#define D_BUREND_FUSE_RIGHT 4
+#define D_BURNED_FUSE_RIGHT 4
 #define D_ON_FUSE_RIGHT 5
 #define D_FUSE_NONE -1
 //-----------------------------
@@ -30,22 +32,37 @@ using namespace std;
 #define D_FUSE_NUM_MIN 3  //導火線の最小本数
 #define D_FUSE_LENGTH 10  //導火線の長さ
 
-struct T_Pos
+struct T_FusesIndex
 {
-	float x;
-	float y;
+	int x;
+	int y;
+
+	bool exeFlg = true;
+
+	T_FusesIndex()
+	{
+		x = 0;
+		y = 0;
+	}
+
+	T_FusesIndex(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+
 };
 
 class Fuses
 {
 private:
 	vector<Fire*> fire;
-	int fuseImages[6];//TODO:burnedの画像追加して配列にする
+	vector<T_FusesIndex> current;
+	int fuseImages[6];
 	int fuseNum;	//本数
 	int fusesArrayMax;
 	int** fuses;
 	int timeToSpreadOut;
-
 public:
 	//コンストラクタ
 	Fuses();
@@ -60,17 +77,29 @@ public:
 	//導火線の生成
 	int** MakeFuses(int fuseNum);
 
+	//飾り付け
+	void DecorateFuses(int** fuses);
+
 	//導火線の初期化
-	void InitFuses(int**fuses);
+	void InitFuses(int** fuses);
 
 	//導火線の削除
 	void DeleteFuses();
 
 	//着火
-	void Ignite(int index);
+	void Ignite(int fuseNum);
+
+	//火の生成
+	void NewFire();
 
 	//描画位置の作成
-	T_Pos MakeDrawPos(int index);
+	T_Pos MakePos(int fusesX,int fusesY);
+
+	//役目を終えた火を鎮火する
+	void Extinguishing();
+
+	//火の延焼
+	void SpreadFlames();
 
 	//導火線の描画
 	void DrawFuses() const;

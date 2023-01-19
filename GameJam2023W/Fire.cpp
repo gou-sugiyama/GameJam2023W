@@ -8,9 +8,11 @@ Fire::Fire()
 {
 	x = 600;
 	y = 360;
+	direction = T_Pos();
 	speedX = 0;
 	speedY = 0;
 	frame = 0;
+	deleteFlg = false;
 
 	animTimer = 0;
 
@@ -20,10 +22,11 @@ Fire::Fire()
 //-------------------
 // コンストラクタ
 //-------------------
-Fire::Fire(float x, float y)
+Fire::Fire(T_Pos pos, T_Pos direction)
 {
-	this->x = x;
-	this->y = y;
+	this->x = pos.x;
+	this->y = pos.y;
+	this->direction = direction;
 	speedX = 0;
 	speedY = 0;
 	frame = 0;
@@ -52,17 +55,31 @@ Fire::~Fire()
 void Fire::Update()
 {
 	UpdateAnim();
-	Move();
-	if (frame > 0)
+	if (speedX == 0 && speedY == 0)
 	{
-		frame--;
+		DirectionalMove();
+		if (frame > 0)
+		{
+			frame--;
+		}
+		else
+		{
+			deleteFlg = true;
+		}
 	}
 	else
 	{
-		speedX = 0;
-		speedY = 0;
+		Move();
+		if (frame > 0)
+		{
+			frame--;
+		}
+		else
+		{
+			speedX = 0;
+			speedY = 0;
+		}
 	}
-
 }
 
 //--------------------
@@ -131,13 +148,23 @@ void Fire::Move()
 	y += speedY;
 }
 
+//------------------------------
+// 方向性移動
+//------------------------------
+void Fire::DirectionalMove()
+{
+	//directionで決められた方向へ、1単位の距離を30フレームで進む速さで動く
+	x += direction.x * D_UNIT_SPEED / 30;
+	y += direction.y * D_UNIT_SPEED / 30;
+}
+
 //----------------------------------------------------------------------
 // 目標座標と移動時間の設定　引数：座標xy 移動にかけるフレーム数
 //----------------------------------------------------------------------
-void Fire::SetTargetPos(float x, float y, int frame)
+void Fire::SetTargetPos(T_Pos pos, int frame)
 {
-	float distanceX = x - this->x;
-	float distanceY = y - this->y;
+	float distanceX = pos.x - this->x;
+	float distanceY = pos.y - this->y;
 
 	speedX = distanceX / frame;
 	speedY = distanceY / frame;

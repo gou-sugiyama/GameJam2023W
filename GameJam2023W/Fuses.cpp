@@ -11,17 +11,14 @@ Fuses::Fuses()
 {
 	fuseImages[D_BURNED]			= LoadGraph("images/burned_fuse.png");
 	fuseImages[D_ON_FUSE]			= LoadGraph("images/fuse.png");
-	fuseImages[D_BUREND_FUSE_LEFT]	 = LoadGraph("images/burned_fuse_left.png");
+	fuseImages[D_BURNED_FUSE_LEFT]	 = LoadGraph("images/burned_fuse_left.png");
 	fuseImages[D_ON_FUSE_LEFT]		 = LoadGraph("images/fuse_left.png");
-	fuseImages[D_BUREND_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
+	fuseImages[D_BURNED_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
 	fuseImages[D_ON_FUSE_RIGHT]		 = LoadGraph("images/fuse_right.png");
-	fuseNum = 7;
+	fuseNum = 10;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
-
-	Ignite(0);
-	Ignite(1);
 }
 
 //---------------------------
@@ -43,13 +40,26 @@ Fuses::~Fuses()
 //---------------------------
 void Fuses::Update()
 {
-	timeToSpreadOut++;
-
 	vector<Fire*>::iterator it = fire.begin();
 	for (; it != fire.end(); it++)
 	{
 		(*it)->Update();
 	}
+
+	timeToSpreadOut++;
+	if (timeToSpreadOut % 30 == 0)
+	{
+
+		//実行フラグの初期化
+		for (auto it = current.begin(); it != current.end(); it++)
+		{
+			(*it).exeFlg = true;
+		}
+
+		NewFire();
+		SpreadFlames();
+	}
+	Extinguishing();
 }
 
 //---------------------------
@@ -66,7 +76,7 @@ void Fuses::Draw() const
 		(*it)->Draw();
 	}
 
-#define _DEBUG_
+//#define _DEBUG_
 #ifdef _DEBUG_
 	//for (int i = 0; i < fusesArrayMax; i++)
 	//{
@@ -114,9 +124,45 @@ int** Fuses::MakeFuses(int fuseNum)
 	
 	InitFuses(fuses);
 
+	DecorateFuses(fuses);
 
 	return fuses;
 }
+
+//----------------------------------------
+// 飾り付け
+//----------------------------------------
+void Fuses::DecorateFuses(int** fuses)
+{
+	int none = fuseNum - 4;
+	int lowFuseNum = fuseNum - 3;
+	
+	for (int i = 0; i < lowFuseNum; i++)
+	{
+		int x;
+		int y;
+		do
+		{
+			x = GetRand(fuseNum - 2) * 2 + 1;
+			y = GetRand(D_FUSE_LENGTH - 3) + 1;//１～８までにおさえたい
+		} while (fuses[x][y - 1] == D_ON_FUSE || fuses[x][y + 1] == D_ON_FUSE);
+	
+
+		fuses[x][y] = D_ON_FUSE;
+		fuses[x - 1][y] = D_ON_FUSE_RIGHT;
+		fuses[x + 1][y] = D_ON_FUSE_LEFT;
+	}
+
+	for (int i = 0; i < none; i++)
+	{
+		int x = GetRand(fuseNum - 1) * 2;
+		int y = GetRand(D_FUSE_LENGTH - 3) + 1;//１～８までにおさえたい
+
+		fuses[x][y] = D_FUSE_NONE;
+	}
+
+}
+
 
 //------------------------
 // 導火線の初期化
@@ -140,11 +186,28 @@ void Fuses::InitFuses(int** fuses)
 		}
 	}
 
+//define _SEED_
+#ifdef _SEED_
 	//TODO:決め打ちなので後で消す---
-	fuses[1][4] = D_ON_FUSE;
 	fuses[0][4] = D_ON_FUSE_RIGHT;
+	fuses[1][4] = D_ON_FUSE;
 	fuses[2][4] = D_ON_FUSE_LEFT;
+	fuses[2][1] = D_ON_FUSE_RIGHT;
+	fuses[3][1] = D_ON_FUSE;
+	fuses[4][1] = D_ON_FUSE_LEFT;
+	fuses[4][7] = D_ON_FUSE_RIGHT;
+	fuses[5][7] = D_ON_FUSE;
+	fuses[6][7] = D_ON_FUSE_LEFT;
+	fuses[8][7] = D_ON_FUSE_RIGHT;
+	fuses[9][7] = D_ON_FUSE;
+	fuses[10][7] = D_ON_FUSE_LEFT;
+	fuses[10][1] = D_ON_FUSE_RIGHT;
+	fuses[11][1] = D_ON_FUSE;
+	fuses[12][1] = D_ON_FUSE_LEFT;
+		
+	
 	//------------------------------
+#endif
 }
 
 //---------------------------
@@ -162,23 +225,307 @@ void Fuses::DeleteFuses()
 //-------------------------------------------
 // 着火　引数：左から何番目か (0始まり)
 //-------------------------------------------
-void Fuses::Ignite(int index)
+void Fuses::Ignite(int fuseNum)
 {
-	T_Pos pos = MakeDrawPos(index);
-	fire.push_back(new Fire(pos.x,pos.y));
+	int index = fuseNum * 2; //本数を受け取って、配列の添え字に直す
+	T_Pos pos = MakePos(index, D_FUSE_LENGTH - 1);
+
+	//火を作る
+	fire.push_back(new Fire(pos, D_DIRECTION_UP));
+	current.push_back(T_FusesIndex(index, D_FUSE_LENGTH - 2));
+
+	auto it = --current.end();
+	//Fireがどこまですすめるか測る
+	int count = 0;
+	for (int i = 0;
+		(*it).y - i >= 0 
+		&& fuses[(*it).x][(*it).y - i] != D_FUSE_NONE
+		&& fuses[(*it).x][(*it).y - i] % 2 != 0;
+		i++)
+	{
+		count++;
+	}
+	(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+	
+
+	fuses[index][D_FUSE_LENGTH - 1] -= 1;
+}
+
+//-----------------------------------------------------
+// 火の生成 引数：fusesの中のどこを燃やすか
+//-----------------------------------------------------
+void Fuses::NewFire()
+{
+	bool down = false;
+	T_FusesIndex tmp;
+	//交差点を踏んだら増殖する
+	for (auto it = current.begin(); it != current.end(); it++)
+	{
+		int test = fuses[(*it).x][(*it).y];
+		if (fuses[(*it).x][(*it).y] == D_ON_FUSE_RIGHT
+			&& (*it).exeFlg == true)
+		{
+			(*it).exeFlg = false;
+			//ポジション作ってFireを作る
+			if (fuses[(*it).x + 1][(*it).y] != D_BURNED)
+			{
+				T_Pos pos = MakePos((*it).x, (*it).y);
+				fire.push_back(new Fire(pos, D_DIRECTION_RIGHT));
+				//Fireがどこまですすめるか測る
+				int count = 0;
+				for (int i = 0;
+					(*it).x + i < fusesArrayMax
+					&& fuses[(*it).x + i][(*it).y] != D_FUSE_NONE
+					&& fuses[(*it).x + i][(*it).y] % 2 != 0;
+					i++)
+				{
+					count++;
+				}
+				(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+				fuses[(*it).x][(*it).y] -= 1;
+				current.push_back(T_FusesIndex((*it).x + 1, (*it).y));
+				(--current.end())->exeFlg = false;
+			}
+			else if (fuses[(*it).x][(*it).y - 1] != D_BURNED
+				&& fuses[(*it).x][(*it).y + 1] != D_BURNED)
+			{
+				T_Pos pos = MakePos((*it).x, (*it).y);
+				fire.push_back(new Fire(pos, D_DIRECTION_UP));
+				//Fireがどこまですすめるか測る
+				int count = 0;
+				for (int i = 0;
+					(*it).y - i >= 0
+					&& fuses[(*it).x][(*it).y - i] != D_FUSE_NONE
+					&& fuses[(*it).x][(*it).y - i] % 2 != 0;
+					i++)
+				{
+					count++;
+				}
+				(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+
+				fire.push_back(new Fire(pos, D_DIRECTION_DOWN));
+				//Fireがどこまですすめるか測る
+				count = 0;
+				for (int i = 0;
+					(*it).y - i >= 0
+					&& fuses[(*it).x][(*it).y + i] != D_FUSE_NONE
+					&& fuses[(*it).x][(*it).y + i] % 2 != 0;
+					i++)
+				{
+					count++;
+				}
+				(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+		
+
+				fuses[(*it).x][(*it).y] -= 1;
+				tmp = *it;
+				current.push_back(T_FusesIndex((*it).x, (*it).y - 1));
+				(--current.end())->exeFlg = false;
+				down = true;
+			}
+			else
+			{
+				fuses[(*it).x][(*it).y] -= 1;
+			}
+			if (down == true)
+			{
+				current.push_back(T_FusesIndex(tmp.x, tmp.y + 1));
+				(--current.end())->exeFlg = false;
+			}
+			NewFire();
+			break;
+		}
+		else if (fuses[(*it).x][(*it).y] == D_ON_FUSE_LEFT
+			&& (*it).exeFlg == true)
+		{
+			(*it).exeFlg = false;
+			//ポジション作ってFireを作る
+			if (fuses[(*it).x - 1][(*it).y] != D_BURNED)
+			{
+				T_Pos pos = MakePos((*it).x, (*it).y);
+				fire.push_back(new Fire(pos, D_DIRECTION_LEFT));
+				//Fireがどこまで進めるかはかる
+				int count = 0;
+				for (int i = 0;
+					(*it).x - i >= 0
+					&& fuses[(*it).x - i][(*it).y] != D_FUSE_NONE
+					&& fuses[(*it).x - i][(*it).y] % 2 != 0;
+					i++)
+				{
+					count++;
+				}
+				(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+				fuses[(*it).x][(*it).y] -= 1;
+				current.push_back(T_FusesIndex((*it).x - 1, (*it).y));
+				(--current.end())->exeFlg = false;
+			}
+			else if (fuses[(*it).x][(*it).y - 1] != D_BURNED
+				&& fuses[(*it).x][(*it).y + 1] != D_BURNED)
+			{
+				T_Pos pos = MakePos((*it).x, (*it).y);
+				fire.push_back(new Fire(pos, D_DIRECTION_UP));
+				//Fireがどこまですすめるか測る
+				int count = 0;
+				for (int i = 0;
+					(*it).y - i >= 0
+					&& fuses[(*it).x][(*it).y - i] != D_FUSE_NONE
+					&& fuses[(*it).x][(*it).y - i] % 2 != 0;
+					i++)
+				{
+					count++;
+				}
+				(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+
+				fire.push_back(new Fire(pos, D_DIRECTION_DOWN));
+				//Fireがどこまですすめるか測る
+				count = 0;
+				for (int i = 0;
+					(*it).y - i >= 0
+					&& fuses[(*it).x][(*it).y + i] != D_FUSE_NONE
+					&& fuses[(*it).x][(*it).y + i] % 2 != 0;
+					i++)
+				{
+					count++;
+				}
+				(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+
+
+				fuses[(*it).x][(*it).y] -= 1;
+				tmp = *it;
+				current.push_back(T_FusesIndex((*it).x, (*it).y - 1));
+				(--current.end())->exeFlg = false;
+				
+				down = true;
+			}
+			else
+			{
+				fuses[(*it).x][(*it).y] -= 1;
+			}
+			if (down == true)
+			{
+				current.push_back(T_FusesIndex(tmp.x, tmp.y + 1));
+				(--current.end())->exeFlg = false;
+			}
+			NewFire();
+			break;
+		}
+		else if (fuses[(*it).x][(*it).y] == D_ON_FUSE)
+		{
+			fuses[(*it).x][(*it).y] -= 1;
+		}
+	}
+
+
+
 }
 
 //-----------------------------------
 // 描画位置の作成（火花用）
 //-----------------------------------
-T_Pos Fuses::MakeDrawPos(int index)
+T_Pos Fuses::MakePos(int fusesX,int fusesY)
 {
 	T_Pos pos;
 	int sideShift = fusesArrayMax / 2;
-	pos.x = D_FUSES_CENTER + D_FUSESIZE * (index * 2 - sideShift);//index * 2は間隔分も計算するため
-	pos.y = D_FUSES_FIRST_Y + D_FUSESIZE * (D_FUSE_LENGTH - 1);//0始まりのため -1
+	pos.x = (float)(D_FUSES_CENTER + D_FUSESIZE * (fusesX - sideShift));
+	pos.y = (float)(D_FUSES_FIRST_Y + D_FUSESIZE * fusesY);
 
 	return pos;
+}
+
+//------------------------------------
+// 役目を終えた火を鎮火する
+//------------------------------------
+void Fuses::Extinguishing()
+{
+	for (auto it = fire.begin(); it != fire.end(); it++)
+	{
+		if ((*it)->GetDeleteFlg() == true)
+		{
+			delete* it;
+			fire.erase(it);
+			Extinguishing();
+			break;
+		}
+	}
+}
+
+//------------------------------
+// 延焼
+//------------------------------
+void Fuses::SpreadFlames()
+{
+
+
+	for (auto it = current.begin(); it != current.end(); it++)
+	{
+
+
+		//T_Pos pos = MakePos((*it).x, (*it).y);
+		//fire.push_back(new Fire(pos, D_DIRECTION_RIGHT));
+		//int count = 0;
+		//for (int i = 0;
+		//	(*it).x + i < fusesArrayMax
+		//	&& fuses[(*it).x + i + 1][(*it).y] != D_FUSE_NONE;
+		//	i++)
+		//{
+		//	count++;
+		//}
+		//(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+		//right = true;
+		////current.push_back(T_FusesIndex((*it).x, (*it).y));
+
+
+
+		//上・下・左・右を確認して燃え広がる
+		if ((*it).y - 1 >= 0
+			&& fuses[(*it).x][(*it).y - 1] == D_ON_FUSE
+			|| fuses[(*it).x][(*it).y - 1] == D_ON_FUSE_LEFT
+			|| fuses[(*it).x][(*it).y - 1] == D_ON_FUSE_RIGHT
+			)
+		{
+			(*it).y -= 1;
+			continue;
+		}
+
+		if ((*it).y + 1 < D_FUSE_LENGTH
+			&& fuses[(*it).x][(*it).y + 1] == D_ON_FUSE
+			|| fuses[(*it).x][(*it).y + 1] == D_ON_FUSE_LEFT
+			|| fuses[(*it).x][(*it).y + 1] == D_ON_FUSE_RIGHT
+			)
+		{
+			(*it).y += 1;
+			continue;
+		}
+
+
+		if (((*it).x) - 1 >= 0)
+		{
+
+			if (
+				fuses[(*it).x - 1][(*it).y] == D_ON_FUSE
+				|| fuses[(*it).x - 1][(*it).y] == D_ON_FUSE_LEFT
+				|| fuses[(*it).x - 1][(*it).y] == D_ON_FUSE_RIGHT
+				)
+			{
+				(*it).x -= 1;
+				continue;
+			}
+
+
+		}
+
+		if ((*it).x + 1 < fusesArrayMax
+			&& fuses[(*it).x + 1][(*it).y] == D_ON_FUSE
+			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_LEFT
+			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_RIGHT
+			)
+		{
+			(*it).x += 1;
+			continue;
+		}
+
+
+	}
 }
 
 //----------------------
