@@ -19,9 +19,6 @@ Fuses::Fuses()
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
-
-	Ignite(4);
-
 }
 
 //---------------------------
