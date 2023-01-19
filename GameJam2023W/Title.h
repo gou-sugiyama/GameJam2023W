@@ -17,6 +17,7 @@ private:
 	int Helpimg;      //ヘルプイメージ
 	int Endimg;       //エンドイメージ
 	int Carsorimg;    //カーソルイメージ
+	int TitleBGM;
 
 public:
 	Title();

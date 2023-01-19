@@ -26,6 +26,8 @@ Title::Title()
 	Helpimg = LoadGraph("images/title/help.png");
 	Endimg = LoadGraph("images/title/end.png");
 	Carsorimg = LoadGraph("images/title/ka-soru.png");
+
+	TitleBGM = LoadSoundMem("BGM,SE/BGM/BGM/taitoru.wav");
 }
 
 //-------------------------
@@ -34,6 +36,8 @@ Title::Title()
 void Title::Update() 
 {
 	Pad();
+	PlaySoundMem(TitleBGM, DX_PLAYTYPE_NORMAL, TRUE);
+	
 	if (FlgY == 0 && InputY < -MARGIN) {
 		if (2 < ++SelectY) SelectY = 0;
 	}
@@ -66,6 +70,7 @@ void Title::Draw() const
 	int MenuX = -20 * SelectY;
 	/*DrawTriangle(100, 50 + MenuY, 120, 55 + MenuY, 100, 60 + MenuY, 0xffffff, true);*/
 	DrawGraph(0 + MenuX, 0 + MenuY, Carsorimg, TRUE);
+	DrawFormatString(0, 0, 0xffffff, "%d", CheckSoundMem(TitleBGM));
 }
 
 void Title::Flashing() const {
@@ -167,12 +172,15 @@ AbstractScene* Title::ChangeScene()
 {
 	if (sceneCHG) {
 		if (SelectY == 0) {
+			StopSoundMem(TitleBGM);
 			return new GameMain;
 		}
 		if (SelectY == 1) {
+			StopSoundMem(TitleBGM);
 			return new Help;
 		}
 		if (SelectY == 2) {
+			StopSoundMem(TitleBGM);
 			return new GameEnd;
 		}
 	}

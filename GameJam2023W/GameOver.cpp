@@ -23,6 +23,7 @@ GameOver::GameOver()
 void GameOver::Update()
 {
 	ten();
+	PlaySoundFile("BGM/BGM/gameover.mp3", DX_PLAYTYPE_BACK);
 }
 
 //-------------------

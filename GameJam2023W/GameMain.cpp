@@ -48,6 +48,8 @@ void GameMain::Update()
 		if (--gFire < 0) gFire = gFuse;
 	}
 	gFireX = 255 + (40 * ((gFuse + 1) % 2)) + (80 * ((10 - (gFuse + 1)) / 2)) + gFire * 80;
+
+	PlaySoundFile("BGM,SE/BGM/BGM/sentouzi1.wav", DX_PLAYTYPE_BACK);
 }
 
 //-------------------
@@ -82,7 +84,7 @@ AbstractScene* GameMain::ChangeScene()
 
 	if (sceneFlg)
 	{
-		return new GameClear();
+		return new GameOver();
 	}
 	return this;
 }
