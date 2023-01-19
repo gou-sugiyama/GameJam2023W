@@ -37,6 +37,8 @@ struct T_FusesIndex
 	int x;
 	int y;
 
+	bool exeFlg = true;
+
 	T_FusesIndex(int x, int y)
 	{
 		this->x = x;
@@ -79,7 +81,7 @@ public:
 	void Ignite(int fuseNum);
 
 	//‰Î‚Ì¶¬
-	void NewFire(T_FusesIndex tFuses);
+	void NewFire();
 
 	//•`‰æˆÊ’u‚Ìì¬
 	T_Pos MakePos(int fusesX,int fusesY);
