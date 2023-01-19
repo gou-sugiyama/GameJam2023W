@@ -15,7 +15,7 @@ Help::Help() {
 }
 
 void Help::Update() {
-	if (padkey::OnClick(XINPUT_BUTTON_B)) {
+	if (padkey::OnClick(XINPUT_BUTTON_A)) {
 		sceneCHG = true;
 	}
 }
@@ -23,6 +23,7 @@ void Help::Update() {
 void Help::Draw() const {
 	static int count = 0;
 	DrawGraph(0, 0, Helpimg, TRUE);
+
 	if (count++ < 30) {
 		DrawGraph(0, 0, HelpBack, TRUE);
 	}

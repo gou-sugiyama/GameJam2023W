@@ -154,6 +154,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="padkey.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

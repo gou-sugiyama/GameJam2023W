@@ -19,6 +19,7 @@ Title::Title()
 	FlgY = 0;
 	SceneCHGCount = 0;
 	SceneCHGFlg = false;
+	KeyFlg = true;
 
 	Titleimg = LoadGraph("images/title/title.png");
 	TitleNameimg = LoadGraph("images/title/title_name.png");
@@ -34,15 +35,19 @@ Title::Title()
 void Title::Update() 
 {
 	Pad();
-	if (FlgY == 0 && InputY < -MARGIN) {
-		if (2 < ++SelectY) SelectY = 0;
-	}
-	if (FlgY == 0 && InputY > MARGIN) {
-		if (--SelectY < 0) SelectY = 2;
-	}
 
-	if (padkey::OnClick(XINPUT_BUTTON_B)) {
-		SceneCHGFlg = true;
+	if (KeyFlg) {
+		if (padkey::OnClick(XINPUT_BUTTON_DPAD_DOWN)) {
+			if (2 < ++SelectY) SelectY = 0;
+		}
+		if (padkey::OnClick(XINPUT_BUTTON_DPAD_UP)) {
+			if (--SelectY < 0) SelectY = 2;
+		}
+
+		if (padkey::OnClick(XINPUT_BUTTON_B)) {
+			SceneCHGFlg = true;
+			KeyFlg = false;
+		}
 	}
 
 	if (SceneCHGFlg) {
@@ -74,30 +79,24 @@ void Title::Flashing() const {
 	static bool ViewEnd = true;
 	static bool ViewFlash = false;
 
-	static bool Flg = false;
 	static bool OnceFlg = true;
 
 	static int count = 0;
 	static int take = 0;
 
 	if (padkey::OnClick(XINPUT_BUTTON_B)) {
-		//if (Flg) {
-		//	Flg = false;
-		//}
-		/*else {*/
-			if (SelectY == 0) {
-				ViewStart = false;
-				ViewFlash = true;
-			}
-			if (SelectY == 1) {
-				ViewHelp = false;
-				ViewFlash = true;
-			}
-			if (SelectY == 2) {
-				ViewEnd = false;
-				ViewFlash = true;
-			}
-		/*}*/
+		if (SelectY == 0) {
+			ViewStart = false;
+			ViewFlash = true;
+		}
+		if (SelectY == 1) {
+			ViewHelp = false;
+			ViewFlash = true;
+		}
+		if (SelectY == 2) {
+			ViewEnd = false;
+			ViewFlash = true;
+		}
 	}
 
 	if (ViewFlash) {
@@ -115,7 +114,6 @@ void Title::Flashing() const {
 			if (4 < take) {
 				ViewStart = true;
 				ViewFlash = false;
-				Flg = true;
 				take = 0;
 				count = 0;
 			}
@@ -134,14 +132,13 @@ void Title::Flashing() const {
 			if (4 < take) {
 				ViewHelp = true;
 				ViewFlash = false;
-				Flg = true;
 				take = 0;
 				count = 0;
 			}
 		}
 		if (SelectY == 2) {
 			if (count++ < 10) {
-				DrawGraph(0, 0, Endimg, TRUE);
+				DrawGraph(0, -5, Endimg, TRUE);
 			}
 			else if (count++ < 20) {
 
@@ -153,7 +150,6 @@ void Title::Flashing() const {
 			if (4 < take) {
 				ViewEnd = true;
 				ViewFlash = false;
-				Flg = true;
 				take = 0;
 				count = 0;
 			}
@@ -178,12 +174,15 @@ AbstractScene* Title::ChangeScene()
 {
 	if (sceneCHG) {
 		if (SelectY == 0) {
+			KeyFlg = true;
 			return new GameMain;
 		}
 		if (SelectY == 1) {
+			KeyFlg = true;
 			return new Help;
 		}
 		if (SelectY == 2) {
+			KeyFlg = true;
 			return new GameEnd;
 		}
 	}
