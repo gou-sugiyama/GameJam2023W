@@ -74,21 +74,29 @@ void Title::Flashing() const {
 	static bool ViewEnd = true;
 	static bool ViewFlash = false;
 
+	static bool Flg = false;
+	static bool OnceFlg = true;
+
 	static int count = 0;
 	static int take = 0;
 
 	if (padkey::OnClick(XINPUT_BUTTON_B)) {
-		if (SelectY == 0) {
-			ViewStart = false;
-			ViewFlash = true;
+		if (Flg) {
+			Flg = false;
 		}
-		if (SelectY == 1) {
-			ViewHelp = false;
-			ViewFlash = true;
-		}
-		if (SelectY == 2) {
-			ViewEnd = false;
-			ViewFlash = true;
+		else {
+			if (SelectY == 0) {
+				ViewStart = false;
+				ViewFlash = true;
+			}
+			if (SelectY == 1) {
+				ViewHelp = false;
+				ViewFlash = true;
+			}
+			if (SelectY == 2) {
+				ViewEnd = false;
+				ViewFlash = true;
+			}
 		}
 	}
 
@@ -107,6 +115,7 @@ void Title::Flashing() const {
 			if (4 < take) {
 				ViewStart = true;
 				ViewFlash = false;
+				Flg = true;
 				take = 0;
 				count = 0;
 			}
@@ -125,6 +134,7 @@ void Title::Flashing() const {
 			if (4 < take) {
 				ViewHelp = true;
 				ViewFlash = false;
+				Flg = true;
 				take = 0;
 				count = 0;
 			}
@@ -143,6 +153,7 @@ void Title::Flashing() const {
 			if (4 < take) {
 				ViewEnd = true;
 				ViewFlash = false;
+				Flg = true;
 				take = 0;
 				count = 0;
 			}
@@ -156,7 +167,7 @@ void Title::Flashing() const {
 		DrawGraph(0, 0, Helpimg, TRUE);
 	}
 	if (ViewEnd) {
-		DrawGraph(0, 0, Endimg, TRUE);
+		DrawGraph(0, -5, Endimg, TRUE);
 	}
 }
 

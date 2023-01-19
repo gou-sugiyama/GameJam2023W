@@ -8,7 +8,12 @@ private:
 	int MenuY;       //カーソルのY座標の移動値
 	bool sceneCHG;   //シーン変更値
 
-	int DebagCount;
+	int Count;
+
+	int Endimg;
+	int EndTitle;
+	int Bomb;
+	int Explosion;
 
 public:
 	static int END;         //終了
@@ -22,5 +27,7 @@ public:
 	void Update() override;						//描画以外の更新処理
 	void Draw() const override;					//描画の更新処理
 	AbstractScene* ChangeScene() override;		//シーンの変更処理
+
+	void End_Anim() const;
 };
 
