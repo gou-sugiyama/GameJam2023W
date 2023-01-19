@@ -20,11 +20,6 @@ Fuses::Fuses()
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
 
-
-	//Ignite(0);
-	//Ignite(2);
-	Ignite(4);
-
 }
 
 //---------------------------
