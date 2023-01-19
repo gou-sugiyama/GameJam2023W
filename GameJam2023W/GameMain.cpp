@@ -18,6 +18,7 @@ GameMain::GameMain()
 {
 	fuses = new Fuses();
 	bombs = new Bomb;
+	LoadEnemyImages();
 }
 
 //-------------------
@@ -68,9 +69,8 @@ void GameMain::Draw() const
 
 	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: Á‚µ‚Ä
 	
-	//LoadEnemyImages();
-	//DrawEnemy();
-	//EnemyDamage();
+	DrawEnemy();
+	EnemyDamage();
 }
 
 //-------------------

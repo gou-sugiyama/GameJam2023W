@@ -20,6 +20,8 @@ Fuses::Fuses()
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
 
+	Ignite(4);
+
 }
 
 //---------------------------
@@ -125,9 +127,45 @@ int** Fuses::MakeFuses(int fuseNum)
 	
 	InitFuses(fuses);
 
+	DecorateFuses(fuses);
 
 	return fuses;
 }
+
+//----------------------------------------
+// ü‚è•t‚¯
+//----------------------------------------
+void Fuses::DecorateFuses(int** fuses)
+{
+	int none = fuseNum - 4;
+	int lowFuseNum = fuseNum - 3;
+	
+	for (int i = 0; i < lowFuseNum; i++)
+	{
+		int x;
+		int y;
+		do
+		{
+			x = GetRand(fuseNum - 2) * 2 + 1;
+			y = GetRand(D_FUSE_LENGTH - 3) + 1;//‚P`‚W‚Ü‚Å‚É‚¨‚³‚¦‚½‚¢
+		} while (fuses[x][y - 1] == D_ON_FUSE || fuses[x][y + 1] == D_ON_FUSE);
+	
+
+		fuses[x][y] = D_ON_FUSE;
+		fuses[x - 1][y] = D_ON_FUSE_RIGHT;
+		fuses[x + 1][y] = D_ON_FUSE_LEFT;
+	}
+
+	for (int i = 0; i < none; i++)
+	{
+		int x = GetRand(fuseNum - 1) * 2;
+		int y = GetRand(D_FUSE_LENGTH - 3) + 1;//‚P`‚W‚Ü‚Å‚É‚¨‚³‚¦‚½‚¢
+
+		fuses[x][y] = D_FUSE_NONE;
+	}
+
+}
+
 
 //------------------------
 // “±‰Îü‚Ì‰Šú‰»
@@ -151,6 +189,8 @@ void Fuses::InitFuses(int** fuses)
 		}
 	}
 
+//define _SEED_
+#ifdef _SEED_
 	//TODO:Œˆ‚ß‘Å‚¿‚È‚Ì‚ÅŒã‚ÅÁ‚·---
 	fuses[0][4] = D_ON_FUSE_RIGHT;
 	fuses[1][4] = D_ON_FUSE;
@@ -170,6 +210,7 @@ void Fuses::InitFuses(int** fuses)
 		
 	
 	//------------------------------
+#endif
 }
 
 //---------------------------

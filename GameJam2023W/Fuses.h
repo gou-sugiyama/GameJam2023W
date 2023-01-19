@@ -77,8 +77,11 @@ public:
 	//“±‰Îü‚Ì¶¬
 	int** MakeFuses(int fuseNum);
 
+	//ü‚è•t‚¯
+	void DecorateFuses(int** fuses);
+
 	//“±‰Îü‚Ì‰Šú‰»
-	void InitFuses(int**fuses);
+	void InitFuses(int** fuses);
 
 	//“±‰Îü‚Ìíœ
 	void DeleteFuses();
