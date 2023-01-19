@@ -12,6 +12,10 @@ private:
 	int** bombs;
 	int FireOn;
 
+	int fuseNum;	//本数
+	int fusesArrayMax;
+	int** fuses;
+
 public:
 	//コンストラクタ　作られたときに呼ばれる
 	Bomb();
@@ -37,5 +41,8 @@ public:
 
 	//爆弾の描画
 	void DrawBomb()const;
+
+	int** MakeFuses(int fuseNum);
+
 };
 
