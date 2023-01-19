@@ -236,7 +236,7 @@ void Fuses::SpreadFlames()
 			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_RIGHT
 			)
 		{
-			T_Pos pos = MakePos((*it).x + 1, (*it).y);
+			T_Pos pos = MakePos((*it).x, (*it).y);
 			fire.push_back(new Fire(pos, D_DIRECTION_RIGHT));
 			int count = 0;
 			for (int i = 0;
