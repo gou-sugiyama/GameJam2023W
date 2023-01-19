@@ -1,13 +1,17 @@
 #include "DxLib.h"
 #include "Bomb.h"
+#include <math.h>
+#include "Fuses.h"
+#include "padkey.h"
 
 //---------------------------
 // コンストラクタ
 //---------------------------
 Bomb::Bomb()
 {
-	//image=LoadGraph()
-
+	BombImg = LoadGraph("images/game jam/爆弾/bakudan2.PNG");
+	ExplosionImg = LoadGraph("images/game jam/爆弾/爆発/bakuhatu3.png");
+	FireOn = 0;
 }
 
 //---------------------------
@@ -15,7 +19,10 @@ Bomb::Bomb()
 //---------------------------
 void Bomb::Update()
 {
-
+	if (padkey::OnClick(XINPUT_BUTTON_B))
+	{
+		FireOn = 1;
+	}
 }
 
 //---------------------------
@@ -23,7 +30,20 @@ void Bomb::Update()
 //---------------------------
 void Bomb::Draw()const
 {
-	DrawBomb();
+	if (FireOn == 0)
+	{
+		DrawBomb();
+	}
+	else
+	{
+		Explosion();
+	}
+}
+
+// 爆発
+void Bomb::Explosion()const
+{
+	DrawGraph(500, 300, ExplosionImg, TRUE);
 }
 
 //---------------------------
@@ -31,5 +51,5 @@ void Bomb::Draw()const
 //---------------------------
 void Bomb::DrawBomb()const
 {
-	//DrawGraph()
+	DrawGraph(500, 300, BombImg, TRUE);
 }

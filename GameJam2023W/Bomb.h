@@ -1,10 +1,16 @@
 #pragma once
+#include "Fuses.h"
+
 class Bomb
 {
 private:
-	int image;
 	int x;
 	int y;
+	int BombImg;
+	int ExplosionImg;
+	int BombNum;
+	int** bombs;
+	int FireOn;
 
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^@ì‚ç‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
@@ -16,6 +22,18 @@ public:
 	void Update();
 	//•`‰æ •`‰æ‚·‚é‚à‚Ì‚Í‘S•”‚±‚±
 	void Draw()const;
+
+	// ”š’e‚Ì¶¬
+	int** MakeBomb(int BombNum);
+	
+	// ”š’e‚Ì‰Šú‰»
+	void InitBomb(int** Bombs);
+	
+	// ”š’e‚Ìíœ
+	void DeleteBomb();
+	
+	// ”š”­
+	void Explosion()const;
 
 	//”š’e‚Ì•`‰æ
 	void DrawBomb()const;

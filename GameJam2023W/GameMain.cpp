@@ -5,7 +5,6 @@
 #include "GameOver.h"
 #include "padkey.h"
 #include "common.h"
-#include "Fuses.h"
 #include "Enemy.h"
 
 int	gFire = 0;
@@ -18,6 +17,7 @@ int gFuse = 0;
 GameMain::GameMain()
 {
 	fuses = new Fuses();
+	bombs = new Bomb;
 }
 
 //-------------------
@@ -26,6 +26,7 @@ GameMain::GameMain()
 GameMain::~GameMain()
 {
 	delete fuses;
+	delete bombs;
 }
 
 //-------------------
@@ -34,6 +35,7 @@ GameMain::~GameMain()
 void GameMain::Update()
 {
 	fuses->Update();
+	bombs->Update();
 	gFuse = fuses->GetFuseNum() - 1;
 	if (padkey::OnClick(XINPUT_BUTTON_Y))
 	{
@@ -56,6 +58,7 @@ void GameMain::Update()
 void GameMain::Draw() const
 {
 	fuses->Draw();
+	bombs->Draw();
 	DrawString(0, 20, "GamaMainScene", 0xffffff);
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);

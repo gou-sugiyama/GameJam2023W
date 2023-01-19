@@ -1,11 +1,13 @@
 #pragma once
 #include "AbstractScene.h"
 #include "Fuses.h"
+#include "Bomb.h"
 class GameMain :
     public AbstractScene
 {
 private:
 	Fuses* fuses;
+	Bomb* bombs;
 	int t = 0; //TODO:Á‚µ‚Ä‚Ë
 	bool sceneFlg = false; //TODO:Á‚µ‚Ä‚Ë
 
