@@ -183,7 +183,9 @@ void Fuses::Ignite(int fuseNum)
 	//‰Î‚ðì‚é
 	fire.push_back(new Fire(pos, D_DIRECTION_UP));
 	(*--fire.end())->SetFrame((D_FUSE_LENGTH - 1) * 30);	//vec.end()‚É‚Í‰½‚à“ü‚Á‚Ä‚È‚¢‚©‚ç-1‚·‚é
-	current.push_back(T_FusesIndex(index, D_FUSE_LENGTH ));
+	current.push_back(T_FusesIndex(index, D_FUSE_LENGTH - 1));
+
+	fuses[index][D_FUSE_LENGTH - 1] -= 1;
 }
 
 //-----------------------------------------------------
