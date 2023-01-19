@@ -65,10 +65,8 @@ void GameMain::Draw() const
 {
 	fuses->Draw();
 	bombs->Draw();
-	DrawString(0, 20, "GamaMainScene", 0xffffff);
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
-	DrawString(0, 20, "GameMainScene", 0xffffff);
 
 	DrawBox(gFireX, 630, gFireX + 50, 680, 0xff0000, FALSE);
 
