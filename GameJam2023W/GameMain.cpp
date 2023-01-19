@@ -72,7 +72,6 @@ void GameMain::Draw() const
 
 	DrawBox(gFireX, 630, gFireX + 50, 680, 0xff0000, FALSE);
 
-	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: Á‚µ‚Ä
 	
 	DrawEnemy();
 	EnemyDamage();

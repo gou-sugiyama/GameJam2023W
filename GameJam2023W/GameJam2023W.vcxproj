@@ -143,6 +143,7 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Fire.h" />
+    <ClInclude Include="FrameRateControll.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="Fuses.h" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="FrameRateControll.cpp" />
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="Fuses.cpp" />
