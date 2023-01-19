@@ -21,9 +21,9 @@ using namespace std;
 //配列のステータス-------------
 #define D_BURNED 0
 #define D_ON_FUSE 1
-#define D_BUREND_FUSE_LEFT 2
+#define D_BURNED_FUSE_LEFT 2
 #define D_ON_FUSE_LEFT 3
-#define D_BUREND_FUSE_RIGHT 4
+#define D_BURNED_FUSE_RIGHT 4
 #define D_ON_FUSE_RIGHT 5
 #define D_FUSE_NONE -1
 //-----------------------------
@@ -38,6 +38,12 @@ struct T_FusesIndex
 	int y;
 
 	bool exeFlg = true;
+
+	T_FusesIndex()
+	{
+		x = 0;
+		y = 0;
+	}
 
 	T_FusesIndex(int x, int y)
 	{

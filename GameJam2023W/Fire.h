@@ -5,7 +5,7 @@
 #define D_DIRECTION_UP {0,-1}
 #define D_DIRECTION_RIGHT {1,0}
 #define D_DIRECTION_DOWN {0,1}
-#define D_DIRECTION_LEFT {1,0}
+#define D_DIRECTION_LEFT {-1,0}
 
 #define D_UNIT_SPEED 40
 
