@@ -19,7 +19,7 @@ GameEnd::GameEnd() {
 }
 
 void GameEnd::Update() {
-	if (400 < Count++) {
+	if (350 < Count++) {
 		END = 99;
 	}
 }
@@ -63,7 +63,7 @@ void GameEnd::End_Anim() const {
 				DrawGraph(BombX, BombY, Bomb, TRUE);
 			}
 			else {
-				ExplosionCount += 10;
+				ExplosionCount += 20;
 				DrawExtendGraph(350 - ExplosionCount, 230 - ExplosionCount,
 					850 + ExplosionCount, 800 + ExplosionCount, Explosion, TRUE);
 			}
