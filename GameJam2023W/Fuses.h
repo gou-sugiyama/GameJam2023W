@@ -79,7 +79,7 @@ public:
 	void Ignite(int fuseNum);
 
 	//‰Î‚Ì¶¬
-	void NewFire(T_Pos pos);
+	void NewFire(T_FusesIndex tFuses);
 
 	//•`‰æˆÊ’u‚Ìì¬
 	T_Pos MakePos(int fusesX,int fusesY);

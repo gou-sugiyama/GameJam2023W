@@ -15,15 +15,13 @@ Fuses::Fuses()
 	fuseImages[D_ON_FUSE_LEFT]		 = LoadGraph("images/fuse_left.png");
 	fuseImages[D_BUREND_FUSE_RIGHT] = LoadGraph("images/burned_fuse_right.png");
 	fuseImages[D_ON_FUSE_RIGHT]		 = LoadGraph("images/fuse_right.png");
-	fuseNum = 7;
+	fuseNum = 8;
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
 
 
 	Ignite(0);
-	Ignite(1);
-	Ignite(2);
 }
 
 //---------------------------
@@ -185,7 +183,7 @@ void Fuses::Ignite(int fuseNum)
 //-----------------------------------------------------
 // 火の生成 引数：fusesの中のどこを燃やすか
 //-----------------------------------------------------
-void Fuses::NewFire(T_Pos pos)
+void Fuses::NewFire(T_FusesIndex tFuses)
 {
 
 }
@@ -227,16 +225,53 @@ void Fuses::SpreadFlames()
 {
 	for (auto it = current.begin(); it != current.end(); it++)
 	{
-		//上・右・下・左を確認して燃え広がる
+		bool up = false;
+		bool right = false;
+		bool down = false;
+		bool left = false;
+
+		if ((*it).x + 1 < fusesArrayMax
+			&& fuses[(*it).x + 1][(*it).y] == D_ON_FUSE
+			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_LEFT
+			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_RIGHT
+			)
+		{
+			T_Pos pos = MakePos((*it).x + 1, (*it).y);
+			fire.push_back(new Fire(pos, D_DIRECTION_RIGHT));
+			int count = 0;
+			for (int i = 0;
+				(*it).x + i < fusesArrayMax
+				&& fuses[(*it).x + i + 1][(*it).y] != D_FUSE_NONE;
+				i++)
+			{
+				count++;
+			}
+			(*--fire.end())->SetFrame(count * 30);	//vec.end()には何も入ってないから-1する
+			right = true;
+			//current.push_back(T_FusesIndex((*it).x, (*it).y));
+
+
+		}
+
+		//上・下・左・右を確認して燃え広がる
 		if ((*it).y - 1 >= 0
 			&& fuses[(*it).x][(*it).y - 1] == D_ON_FUSE
 			|| fuses[(*it).x][(*it).y - 1] == D_ON_FUSE_LEFT
 			|| fuses[(*it).x][(*it).y - 1] == D_ON_FUSE_RIGHT
 			)
 		{
-			
 			fuses[(*it).x][(*it).y - 1] -= 1;
 			(*it).y -= 1;
+		}
+
+		if ((*it).y + 1 < D_FUSE_LENGTH
+			&& fuses[(*it).x][(*it).y + 1] == D_ON_FUSE
+			|| fuses[(*it).x][(*it).y + 1] == D_ON_FUSE_LEFT
+			|| fuses[(*it).x][(*it).y + 1] == D_ON_FUSE_RIGHT
+			)
+		{
+			fuses[(*it).x][(*it).y + 1] -= 1;
+			(*it).y += 1;
 		}
 	}
 }
