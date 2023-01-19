@@ -60,7 +60,7 @@ int LoadEnemyImages(void)
 //----------------------------
 void DrawEnemy(void)
 {
-	DrawRotaGraph(600, 450, 0.5, 0.0, enemyImage[enemyType], TRUE);		//敵の画像表示
+	DrawRotaGraph(600, 150, 0.5, 0.0, enemyImage[enemyType], TRUE);		//敵の画像表示
 
 	enemyNowHp = gEnemyTable[enemyType].hp;			//敵のHP設定
 }
@@ -102,8 +102,8 @@ void EnemyDamage(void)
 			enemyHp = enemyNowHp / gEnemyTable[enemyType].hp;	//HPの比率計算
 
 			//HPゲージ表示
-			DrawBox(400, 650, 400 + 400 * enemyHp, 600, 0xff0000, TRUE);	//内側
-			DrawBox(400, 650, 800, 600, 0xffffff, FALSE);		//外側
+			DrawBox(400, 250, 400 + 400 * enemyHp, 300, 0xff0000, TRUE);	//内側
+			DrawBox(400, 250, 800, 300, 0xffffff, FALSE);		//外側
 		}
 	}
 }
