@@ -1,6 +1,8 @@
 #pragma once
 #include "Fuses.h"
 
+#define Bomb_Rand GetRand(10)
+
 class Bomb
 {
 private:
@@ -11,10 +13,6 @@ private:
 	int BombNum;
 	int** bombs;
 	int FireOn;
-
-	int fuseNum;	//本数
-	int fusesArrayMax;
-	int** fuses;
 
 public:
 	//コンストラクタ　作られたときに呼ばれる
@@ -41,8 +39,6 @@ public:
 
 	//爆弾の描画
 	void DrawBomb()const;
-
-	int** MakeFuses(int fuseNum);
 
 };
 
