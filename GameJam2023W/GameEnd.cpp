@@ -19,7 +19,7 @@ GameEnd::GameEnd() {
 }
 
 void GameEnd::Update() {
-	if (350 < Count++) {
+	if (300 < Count++) {
 		END = 99;
 	}
 }
@@ -59,7 +59,7 @@ void GameEnd::End_Anim() const {
 			}
 		}
 		else {
-			if (StartCount++ < 120) {
+			if (StartCount++ < 60) {
 				DrawGraph(BombX, BombY, Bomb, TRUE);
 			}
 			else {
