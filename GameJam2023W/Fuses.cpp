@@ -145,7 +145,11 @@ void Fuses::DecorateFuses(int** fuses)
 		{
 			x = GetRand(fuseNum - 2) * 2 + 1;
 			y = GetRand(D_FUSE_LENGTH - 3) + 1;//ÇPÅ`ÇWÇ‹Ç≈Ç…Ç®Ç≥Ç¶ÇΩÇ¢
-		} while (fuses[x][y - 1] == D_ON_FUSE || fuses[x][y + 1] == D_ON_FUSE);
+		} 
+		while (fuses[x][y - 1] == D_ON_FUSE
+			|| fuses[x][y + 1] == D_ON_FUSE
+			|| fuses[x + 1][y] == D_ON_FUSE_RIGHT
+			|| fuses[x - 1][y] == D_ON_FUSE_LEFT);
 	
 
 		fuses[x][y] = D_ON_FUSE;

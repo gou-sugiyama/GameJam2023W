@@ -51,6 +51,11 @@ void GameMain::Update()
 		if (--gFire < 0) gFire = gFuse;
 	}
 	gFireX = 255 + (40 * ((gFuse + 1) % 2)) + (80 * ((10 - (gFuse + 1)) / 2)) + gFire * 80;
+
+	if (padkey::OnClick(XINPUT_BUTTON_A))
+	{
+		fuses->Ignite(gFire);
+	}
 }
 
 //-------------------
@@ -60,14 +65,11 @@ void GameMain::Draw() const
 {
 	fuses->Draw();
 	bombs->Draw();
-	DrawString(0, 20, "GamaMainScene", 0xffffff);
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
-	DrawString(0, 20, "GameMainScene", 0xffffff);
 
 	DrawBox(gFireX, 630, gFireX + 50, 680, 0xff0000, FALSE);
 
-	DrawFormatString(0, 100, 0xffffff, "%d", fuses->GetFuseNum());	//TODO: Á‚µ‚Ä
 	
 	DrawEnemy();
 	EnemyDamage();

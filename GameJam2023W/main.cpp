@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "GameEnd.h"
 #include "padkey.h"
+#include "FrameRateControll.h"
 
 /***********************************************
  * プログラムの開始
@@ -28,6 +29,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//シーンマネージャーの確保
 	SceneManager* sceneManager = new SceneManager();
 
+	//フレームレートコントローラの確保
+	FrameRateControll* frame = new FrameRateControll();
+
 	// ゲームループ
 	while (ProcessMessage() == 0 &&
 		GetJoypadInputState(DX_INPUT_KEY_PAD1) != PAD_INPUT_9/*ESCキー*/ &&
@@ -37,10 +41,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		padkey::UpdataKey();
 		ClearDrawScreen();
 
-
+		frame->Update();
 		sceneManager->Update();
 		sceneManager->Draw();
 
+		frame->Wait();
 		/*DrawString(0, 0, "FirstCommit", 0xFFFFFF);*/
 
 		ScreenFlip();			// 裏画面の内容を表画面に反映
