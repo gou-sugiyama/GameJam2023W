@@ -17,6 +17,7 @@ private:
 public:
 	//コンストラクタ　作られたときに呼ばれる
 	Bomb();
+	Bomb(int x,int y);
 	//デストラクタ　消されるときに呼ばれる
 	~Bomb() {};
 
