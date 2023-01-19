@@ -10,6 +10,7 @@ private:
 	int FlgY;
 	int SceneCHGCount;
 	bool SceneCHGFlg;
+	bool KeyFlg;
 
 	int Titleimg;     //タイトルイメージ
 	int TitleNameimg; //タイトルネームイメージ
