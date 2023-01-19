@@ -18,6 +18,7 @@ int gFuse = 0;
 GameMain::GameMain()
 {
 	fuses = new Fuses();
+	InitEnemy();
 }
 
 //-------------------
