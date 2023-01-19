@@ -10,6 +10,9 @@ private:
 
 	int DebagCount;
 
+	int Helpimg;
+	int HelpBack;
+
 public:
 	Help();
 
