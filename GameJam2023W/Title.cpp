@@ -81,10 +81,10 @@ void Title::Flashing() const {
 	static int take = 0;
 
 	if (padkey::OnClick(XINPUT_BUTTON_B)) {
-		if (Flg) {
-			Flg = false;
-		}
-		else {
+		//if (Flg) {
+		//	Flg = false;
+		//}
+		/*else {*/
 			if (SelectY == 0) {
 				ViewStart = false;
 				ViewFlash = true;
@@ -97,7 +97,7 @@ void Title::Flashing() const {
 				ViewEnd = false;
 				ViewFlash = true;
 			}
-		}
+		/*}*/
 	}
 
 	if (ViewFlash) {
@@ -108,7 +108,7 @@ void Title::Flashing() const {
 			else if (count++ < 20) {
 
 			}
-			else if (count++ < 30) {
+			else {
 				count = 0;
 				++take;
 			}
@@ -127,7 +127,7 @@ void Title::Flashing() const {
 			else if (count++ < 20) {
 
 			}
-			else if (count++ < 30) {
+			else {
 				count = 0;
 				++take;
 			}
@@ -146,7 +146,7 @@ void Title::Flashing() const {
 			else if (count++ < 20) {
 
 			}
-			else if (count++ < 30) {
+			else {
 				count = 0;
 				++take;
 			}
