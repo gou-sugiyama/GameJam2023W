@@ -19,9 +19,11 @@
 //----------------------------
 //　関数のプロトタイプ宣言
 //----------------------------
+void InitEnemy();
 void DrawEnemy(void);
 void EnemyAttack(void);
 void EnemyDamage(void);
 int LoadEnemyImages(void);
+void DrawPlayerHp(void);
 //----------------------------
 #endif
