@@ -153,6 +153,7 @@
     <ClInclude Include="over_result.h" />
     <ClInclude Include="padkey.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Stage.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="over_result.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="padkey.cpp" />
     <ClCompile Include="SceneManager.cpp" />

@@ -14,6 +14,10 @@ private:
 	int BombNum;
 	int** bombs;
 	int FireOn;
+	int count;
+
+public:
+	static bool AttackFlg;
 
 public:
 	//コンストラクタ　作られたときに呼ばれる
@@ -37,7 +41,7 @@ public:
 	void DeleteBomb();
 	
 	// 爆発
-	void Explosion()const;
+	void Explosion() const;
 
 	//爆弾の描画
 	void DrawBomb()const;

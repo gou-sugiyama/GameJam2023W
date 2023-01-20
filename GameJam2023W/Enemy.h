@@ -22,7 +22,7 @@
 void InitEnemy();
 void DrawEnemy(void);
 void EnemyAttack(void);
-void EnemyDamage(void);
+void EnemyDamage(int PlayerAttack, bool Flg);
 int LoadEnemyImages(void);
 void DrawPlayerHp(void);
 void RandomEnemy();

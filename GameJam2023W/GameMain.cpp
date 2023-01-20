@@ -76,7 +76,7 @@ void GameMain::Draw() const
 
 	
 	DrawEnemy();
-	EnemyDamage();
+	EnemyDamage(0,false);
 }
 
 //-------------------

@@ -3,6 +3,9 @@
 #include <math.h>
 #include "Fuses.h"
 #include "padkey.h"
+#include "Player.h"
+
+bool Bomb::AttackFlg;
 
 //---------------------------
 // コンストラクタ
@@ -12,7 +15,10 @@ Bomb::Bomb()
 	BombImg = LoadGraph("images/game jam/爆弾/bakudan2.PNG");
 	ExplosionImg = LoadGraph("images/game jam/爆弾/爆発/bakuhatu3.png");
 	FireOn = 0;
-}//---------------------------
+	count = 0;
+	AttackFlg = true;
+}
+//---------------------------
 // コンストラクタ
 //---------------------------
 Bomb::Bomb(int x,int y,int key)
@@ -52,9 +58,12 @@ void Bomb::Draw()const
 }
 
 // 爆発
-void Bomb::Explosion()const
+void Bomb::Explosion() const
 {
 	DrawGraph(500, 300, ExplosionImg, TRUE);
+	if (AttackFlg) {
+		Player::Attacking();
+	}
 }
 
 //---------------------------
