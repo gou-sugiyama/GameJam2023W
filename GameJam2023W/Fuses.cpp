@@ -201,7 +201,7 @@ void Fuses::InitFuses(int** fuses)
 		}
 	}
 
-//define _SEED_
+//#define _SEED_
 #ifdef _SEED_
 	//TODO:åàÇﬂë≈ÇøÇ»ÇÃÇ≈å„Ç≈è¡Ç∑---
 	fuses[0][4] = D_ON_FUSE_RIGHT;
@@ -530,9 +530,9 @@ void Fuses::SpreadFlames()
 		}
 
 		if ((*it).x + 1 < fusesArrayMax
-			&& fuses[(*it).x + 1][(*it).y] == D_ON_FUSE
+			&& (fuses[(*it).x + 1][(*it).y] == D_ON_FUSE
 			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_LEFT
-			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_RIGHT
+			|| fuses[(*it).x + 1][(*it).y] == D_ON_FUSE_RIGHT)
 			)
 		{
 			(*it).x += 1;
