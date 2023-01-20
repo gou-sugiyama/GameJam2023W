@@ -75,7 +75,7 @@ void Fuses::Update()
 	}
 	Extinguishing();
 	BombCheck();
-	//DeleteBomb();
+	DeleteBomb();
 	
 }
 
@@ -245,6 +245,8 @@ void Fuses::DeleteFuses()
 		delete[] fuses[i];
 	}
 	delete[] fuses;
+	fusesArrayMax = 0;
+	fuseNum = 0;
 }
 
 //-------------------------------------------
@@ -658,4 +660,30 @@ void Fuses:: DeleteBomb()
 			break;
 		}
 	}
+}
+
+void Fuses::InitAll()
+{
+	DeleteFuses();
+	
+	for (vector<Fire*>::iterator it = fire.begin(); it != fire.end(); it++)
+	{
+		delete* it;
+	}
+	fire.clear();
+
+	current.clear();
+
+	for (auto it = bombs.begin(); it != bombs.end(); it++)
+	{
+		delete* it;
+	}
+	bombs.clear();
+
+	fuseNum = 10;
+	fusesArrayMax = 0;
+	fuses = MakeFuses(fuseNum);
+	timeToSpreadOut = 0;
+	PlacementBombs();
+
 }

@@ -58,6 +58,11 @@ void GameMain::Update()
 	{
 		fuses->Ignite(gFire);
 	}
+
+	if (padkey::OnClick(XINPUT_BUTTON_X))
+	{
+		fuses->InitAll();
+	}
 }
 
 //-------------------

@@ -131,6 +131,14 @@ void DrawEnemy(void)
 		enemyKillFlg = 0;
 	}
 
+	if (enemyNowHp > 0) {
+
+		enemyHp = enemyNowHp / gEnemyTable[enemyType].hp;	//HPの比率計算
+
+		//HPゲージ表示
+		DrawBox(426, 190, 413 + 413 * enemyHp, 160, 0xff00ff, TRUE);	//内側
+		DrawBox(426, 190, 826, 160, 0xffffff, FALSE);		//外側
+	}
 }
 
 //----------------------------
@@ -195,15 +203,8 @@ void EnemyDamage(void)
 			bomDmg = 0;
 		}
 
-	}
-		
-	if (enemyNowHp > 0) {
 
-		enemyHp = enemyNowHp / gEnemyTable[enemyType].hp;	//HPの比率計算
 
-		//HPゲージ表示
-		DrawBox(426, 190, 413 + 413 * enemyHp, 160, 0xff00ff, TRUE);	//内側
-		DrawBox(426, 190, 826, 160, 0xffffff, FALSE);		//外側
 	}
 	//---------------------
 	// 敵切り替え

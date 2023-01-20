@@ -120,6 +120,9 @@ public:
 	//爆発後けす
 	void DeleteBomb();
 
+	//盤面のリセット
+	void InitAll();
+
 	//ゲッター・セッター
 	int GetFuseNum()
 	{

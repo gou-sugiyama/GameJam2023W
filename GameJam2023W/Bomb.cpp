@@ -41,6 +41,7 @@ void Bomb::Update()
 		{
 			key = D_EXPLOSION;
 		}
+
 	}
 }
 
@@ -55,7 +56,10 @@ void Bomb::Draw()const
 	}
 	else
 	{
-		DrawExplosion();
+		if (!(key == D_EXPLOSION))
+		{		
+			DrawExplosion();
+		}
 	}
 }
 
