@@ -34,13 +34,13 @@ Bomb::Bomb(int x,int y,int key)
 //---------------------------
 void Bomb::Update()
 {
-	if (explosionTime <= 0)
+	if (explosionTime > 0)
 	{
 		explosionTime--;
-	}
-	else
-	{
-		key = D_EXPLOSION;
+		if (explosionTime <= 0)
+		{
+			key = D_EXPLOSION;
+		}
 	}
 }
 
@@ -55,10 +55,7 @@ void Bomb::Draw()const
 	}
 	else
 	{
-		if (!(key == D_EXPLOSION))
-		{		
-			DrawExplosion();
-		}
+		DrawExplosion();
 	}
 }
 

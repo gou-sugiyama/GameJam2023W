@@ -34,11 +34,13 @@ Fuses::~Fuses()
 	{
 		delete* it;
 	}
+	fire.clear();
 
 	for (auto it = bombs.begin(); it != bombs.end(); it++)
 	{
 		delete* it;
 	}
+	bombs.clear();
 }
 
 //---------------------------
@@ -50,6 +52,12 @@ void Fuses::Update()
 	for (; it != fire.end(); it++)
 	{
 		(*it)->Update();
+	}
+	
+	vector<Bomb*>::iterator it2 = bombs.begin();
+	for (; it2 != bombs.end(); it2++)
+	{
+		(*it2)->Update();
 	}
 
 	timeToSpreadOut++;
@@ -67,7 +75,7 @@ void Fuses::Update()
 	}
 	Extinguishing();
 	BombCheck();
-	DeleteBomb();
+	//DeleteBomb();
 	
 }
 
