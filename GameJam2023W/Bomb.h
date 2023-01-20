@@ -1,9 +1,12 @@
 #pragma once
 #include "Fuses.h"
 
+#define Bomb_Rand GetRand(10)
+
 class Bomb
 {
 private:
+	int key;
 	int x;
 	int y;
 	int BombImg;
@@ -12,13 +15,10 @@ private:
 	int** bombs;
 	int FireOn;
 
-	int fuseNum;	//本数
-	int fusesArrayMax;
-	int** fuses;
-
 public:
 	//コンストラクタ　作られたときに呼ばれる
 	Bomb();
+	Bomb(int x,int y,int key);
 	//デストラクタ　消されるときに呼ばれる
 	~Bomb() {};
 
@@ -42,7 +42,7 @@ public:
 	//爆弾の描画
 	void DrawBomb()const;
 
-	int** MakeFuses(int fuseNum);
 
+	int GetKey() { return key; }
 };
 
