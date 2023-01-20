@@ -25,5 +25,6 @@ void EnemyAttack(void);
 void EnemyDamage(void);
 int LoadEnemyImages(void);
 void DrawPlayerHp(void);
+void RandomEnemy();
 //----------------------------
 #endif

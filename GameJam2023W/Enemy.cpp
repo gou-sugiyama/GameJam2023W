@@ -39,6 +39,8 @@ float enemyHp = 0;		//体力比率用
 int once = 0;
 
 int enemyKillFlg = 0;
+
+bool InitFlg = true;
 //--------------------
 //　構造体
 //--------------------
@@ -153,13 +155,11 @@ void EnemyAttack(void)
 //------------------------------
 //　敵のダメージ
 //------------------------------
-void EnemyDamage(void)
+void EnemyDamage()
 {
-
-	
-		//攻撃成功
+	//攻撃成功
 	if (bomDmg >= 1) {
-		//DrawFormatString(0, 0, 0xffffff, "%lf", enemyNowHp);
+		DrawFormatString(0, 0, 0xffffff, "%lf", enemyNowHp);
 
 		if (once == 0) {
 			//ダメージ計算
@@ -196,8 +196,8 @@ void EnemyDamage(void)
 		}
 
 	}
-		
-	if (enemyNowHp > 0) {
+	
+	if (enemyNowHp >= 0) {
 
 		enemyHp = enemyNowHp / gEnemyTable[enemyType].hp;	//HPの比率計算
 
@@ -205,16 +205,17 @@ void EnemyDamage(void)
 		DrawBox(426, 190, 413 + 413 * enemyHp, 160, 0xff00ff, TRUE);	//内側
 		DrawBox(426, 190, 826, 160, 0xffffff, FALSE);		//外側
 	}
+
+	RandomEnemy();
+}
+
+void RandomEnemy() {
 	//---------------------
 	// 敵切り替え
 	//---------------------
-	
 	if (enemyNowHp <= 0) {
-		if (enemyType++ >= 2) {
-			enemyType = 0;
-		}
+		enemyType = GetRand(3);
 		bomDmg = 0;
 		enemyKillFlg = 1;
-		
 	}
 }
