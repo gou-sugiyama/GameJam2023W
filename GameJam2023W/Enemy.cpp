@@ -159,7 +159,7 @@ void EnemyDamage(void)
 	
 		//攻撃成功
 	if (bomDmg >= 1) {
-		DrawFormatString(0, 0, 0xffffff, "%lf", enemyNowHp);
+		//DrawFormatString(0, 0, 0xffffff, "%lf", enemyNowHp);
 
 		if (once == 0) {
 			//ダメージ計算
