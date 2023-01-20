@@ -117,6 +117,9 @@ public:
 	//ボムチェック
 	void BombCheck();
 
+	//爆発後けす
+	void DeleteBomb();
+
 	//ゲッター・セッター
 	int GetFuseNum()
 	{

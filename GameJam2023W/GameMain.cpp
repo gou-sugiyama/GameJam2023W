@@ -37,7 +37,6 @@ GameMain::~GameMain()
 void GameMain::Update()
 {
 	fuses->Update();
-	bombs->Update();
 	gFuse = fuses->GetFuseNum() - 1;
 	if (padkey::OnClick(XINPUT_BUTTON_Y))
 	{
@@ -65,7 +64,6 @@ void GameMain::Update()
 void GameMain::Draw() const
 {
 	fuses->Draw();
-	bombs->Draw();
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
 

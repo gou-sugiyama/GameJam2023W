@@ -67,6 +67,8 @@ void Fuses::Update()
 	}
 	Extinguishing();
 	BombCheck();
+	DeleteBomb();
+	
 }
 
 //---------------------------
@@ -632,6 +634,20 @@ void Fuses::BombCheck()
 					}
 				}
 			}
+		}
+	}
+}
+
+void Fuses:: DeleteBomb()
+{
+	for (auto it = bombs.begin(); it != bombs.end(); it++)
+	{
+		if ((*it)->GetKey() == D_EXPLOSION)
+		{
+			delete* it;
+			bombs.erase(it);
+			DeleteBomb();
+			break;
 		}
 	}
 }

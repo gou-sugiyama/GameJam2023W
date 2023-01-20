@@ -1,7 +1,7 @@
 #pragma once
 #include "Fuses.h"
 
-#define Bomb_Rand GetRand(10)
+#define D_EXPLOSION 999
 
 class Bomb
 {
@@ -14,6 +14,7 @@ private:
 	int BombNum;
 	int** bombs;
 	int FireOn;
+	int explosionTime;
 
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^@ì‚ç‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
@@ -26,21 +27,14 @@ public:
 	void Update();
 	//•`‰æ •`‰æ‚·‚é‚à‚Ì‚Í‘S•”‚±‚±
 	void Draw()const;
-
-	// ”š’e‚Ì¶¬
-	int** MakeBomb(int BombNum);
-	
-	// ”š’e‚Ì‰Šú‰»
-	void InitBomb(int** Bombs);
-	
-	// ”š’e‚Ìíœ
-	void DeleteBomb();
 	
 	// ”š”­
-	void Explosion()const;
+	void Explosion();
 
 	//”š’e‚Ì•`‰æ
 	void DrawBomb()const;
+	//”š”­‚Ì•`‰æ
+	void DrawExplosion()const;
 
 
 	int GetKey() { return key; }
