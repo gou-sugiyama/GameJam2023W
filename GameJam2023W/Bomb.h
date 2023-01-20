@@ -6,6 +6,7 @@
 class Bomb
 {
 private:
+	int key;
 	int x;
 	int y;
 	int BombImg;
@@ -17,7 +18,7 @@ private:
 public:
 	//コンストラクタ　作られたときに呼ばれる
 	Bomb();
-	Bomb(int x,int y);
+	Bomb(int x,int y,int key);
 	//デストラクタ　消されるときに呼ばれる
 	~Bomb() {};
 
@@ -41,5 +42,7 @@ public:
 	//爆弾の描画
 	void DrawBomb()const;
 
+
+	int GetKey() { return key; }
 };
 

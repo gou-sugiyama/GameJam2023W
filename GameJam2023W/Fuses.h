@@ -4,6 +4,7 @@
 #include "common.h"
 #include "T_Pos.h"
 #include "Fire.h"
+#include "Bomb.h"
 using namespace std;
 
 //画像サイズ
@@ -53,16 +54,22 @@ struct T_FusesIndex
 
 };
 
+class Bomb;
 class Fuses
 {
 private:
 	vector<Fire*> fire;
 	vector<T_FusesIndex> current;
+
+	vector<Bomb*> bombs;
+
 	int fuseImages[6];
 	int fuseNum;	//本数
 	int fusesArrayMax;
 	int** fuses;
 	int timeToSpreadOut;
+
+	vector<int>bombPosX;
 public:
 	//コンストラクタ
 	Fuses();
@@ -104,6 +111,11 @@ public:
 	//導火線の描画
 	void DrawFuses() const;
 
+	//ボムの配置
+	void PlacementBombs();
+
+	//ボムチェック
+	void BombCheck();
 
 	//ゲッター・セッター
 	int GetFuseNum()

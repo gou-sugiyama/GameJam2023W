@@ -15,10 +15,11 @@ Bomb::Bomb()
 }//---------------------------
 // コンストラクタ
 //---------------------------
-Bomb::Bomb(int x,int y)
+Bomb::Bomb(int x,int y,int key)
 {
 	this->x = x;
 	this->y = y;
+	this->key = key;
 	BombImg = LoadGraph("images/game jam/爆弾/bakudan2.PNG");
 	ExplosionImg = LoadGraph("images/game jam/爆弾/爆発/bakuhatu3.png");
 	FireOn = 0;

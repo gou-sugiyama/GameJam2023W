@@ -19,6 +19,7 @@ Fuses::Fuses()
 	fusesArrayMax = 0;
 	fuses = MakeFuses(fuseNum);
 	timeToSpreadOut = 0;
+	PlacementBombs();
 }
 
 //---------------------------
@@ -30,6 +31,11 @@ Fuses::~Fuses()
 
 	vector<Fire*>::iterator it = fire.begin();
 	for (; it != fire.end(); it++)
+	{
+		delete* it;
+	}
+
+	for (auto it = bombs.begin(); it != bombs.end(); it++)
 	{
 		delete* it;
 	}
@@ -60,6 +66,7 @@ void Fuses::Update()
 		SpreadFlames();
 	}
 	Extinguishing();
+	BombCheck();
 }
 
 //---------------------------
@@ -72,6 +79,10 @@ void Fuses::Draw() const
 
 	
 	for (auto it = fire.begin(); it != fire.end(); it++)
+	{
+		(*it)->Draw();
+	}
+	for (auto it = bombs.begin(); it != bombs.end(); it++)
 	{
 		(*it)->Draw();
 	}
@@ -568,6 +579,59 @@ void Fuses::DrawFuses() const
 				0xFFFF00, "%d", fuses[i][j]);
 #endif
 			
+		}
+	}
+}
+
+//---------------------------
+// ƒ{ƒ€‚Ì”z’u
+//---------------------------
+void Fuses::PlacementBombs()
+{
+	int Num[10] = { 0,1,2,3,4,5,6,7,8,9 };
+	
+	int bombNum = GetRand(fuseNum / 2) + fuseNum / 3;
+	for (int i = 0; i < bombNum; i++) {
+		int w = GetRand(fuseNum - 1);
+		int tmp;
+		tmp = Num[i];
+		Num[i] = Num[w];
+		Num[w] = tmp;
+	}
+	for (int i = 0; i < bombNum; i++)
+	{
+		bombPosX.push_back(Num[i] * 2);
+	}
+	int y = D_FUSES_FIRST_Y;
+
+	int sideShift = fusesArrayMax / 2;
+	for (auto it = bombPosX.begin(); it != bombPosX.end(); it++)
+	{
+		bombs.push_back(new Bomb(D_FUSES_CENTER + D_FUSESIZE * ((*it) - sideShift), y,(*it)));
+	}
+
+}
+
+
+void Fuses::BombCheck()
+{
+	for (int i = 0; i < fusesArrayMax; i++)
+	{
+		if (fuses[i][0] % 2 == 0)
+		{
+			for (auto it = bombPosX.begin(); it != bombPosX.end(); it++)
+			{
+				if (i == (*it))
+				{
+					for (auto it = bombs.begin(); it != bombs.end(); it++)
+					{
+						if (i == (*it)->GetKey())
+						{
+							(*it)->Explosion();
+						}
+					}
+				}
+			}
 		}
 	}
 }
