@@ -4,5 +4,10 @@
 class Stage
 {
 private:
+	int Stageimg;
 
+public:
+	Stage();
+	~Stage() {};
+	void DrawStage() const;
 };

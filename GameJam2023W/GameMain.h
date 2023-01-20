@@ -2,12 +2,15 @@
 #include "AbstractScene.h"
 #include "Fuses.h"
 #include "Bomb.h"
+#include "Stage.h"
+
 class GameMain :
     public AbstractScene
 {
 private:
 	Fuses* fuses;
 	Bomb* bombs;
+	Stage* stage;
 	bool sceneFlg = false; //TODO:Á‚µ‚Ä‚Ë
 
 public:
