@@ -20,6 +20,7 @@ GameMain::GameMain()
 	InitEnemy();
 	bombs = new Bomb;
 	LoadEnemyImages();
+	stage = new Stage();
 }
 
 //-------------------
@@ -29,6 +30,7 @@ GameMain::~GameMain()
 {
 	delete fuses;
 	delete bombs;
+	delete stage;
 }
 
 //-------------------
@@ -64,8 +66,9 @@ void GameMain::Update()
 //-------------------
 void GameMain::Draw() const
 {
+	stage->DrawStage();
 	fuses->Draw();
-	bombs->Draw();
+	//bombs->Draw();
 	DrawBox(0, 410, 200, 720, 0xffffff, TRUE);
 	DrawBox(1080, 410, 1280, 720, 0xffffff, TRUE);
 
